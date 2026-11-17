@@ -46,6 +46,76 @@
   const $ = id => document.getElementById(id);
   const list = $('territory-list'), search = $('territory-search'), formState = $('state'), select = $('territory');
   let state = 'FL', chosen = null, map = null, layers = null;
+  const mapFallback=document.querySelector('#territory-map .map-fallback');
+  const svgNamespace='http://www.w3.org/2000/svg';
+  let imageryReady=false,mapCheckTimer;
+  function svgElement(parent,tag,attributes,label){
+ const element=document.createElementNS(svgNamespace,tag);
+ Object.entries(attributes||{}).forEach(([key,value])=>element.setAttribute(key,String(value)));
+ if(label!==undefined)element.textContent=label;
+ parent.append(element);return element;
+}
+  function updateMapFallback(){
+ if(!mapFallback||!chosen)return;
+ const panel=document.createElement('div');panel.className='map-schematic';
+ const heading=document.createElement('div');heading.className='map-schematic-heading';
+ heading.textContent=`${chosen.city}, ${state} · Your proposed 20 × 20-mile territory`;
+ panel.append(heading);
+ const svg=svgElement(panel,'svg',{viewBox:'0 0 680 344',role:'img',
+ 'aria-label':`Geographic overview centered on ${chosen.city}, ${state}, with a 20 by 20 mile square highlighted`,
+ preserveAspectRatio:'xMidYMid meet'});
+ svgElement(svg,'rect',{x:0,y:0,width:680,height:344,rx:12,fill:'#edf4fc'});
+ for(let col=40;col<680;col+=40)svgElement(svg,'line',{x1:col,y1:0,x2:col,y2:344,stroke:'#d9e4f3','stroke-width':1});
+ for(let row=24;row<344;row+=40)svgElement(svg,'line',{x1:0,y1:row,x2:680,y2:row,stroke:'#d9e4f3','stroke-width':1});
+ const scale=7.2,cx=340,cy=166;
+ const px=t=>cx+(t.lng-chosen.lng)*69.172*Math.cos(chosen.lat*Math.PI/180)*scale;
+ const py=t=>cy-(t.lat-chosen.lat)*69*scale;
+ const half=10*scale;
+ svgElement(svg,'rect',{x:cx-half,y:cy-half,width:half*2,height:half*2,rx:6,fill:'#ec69b8','fill-opacity':'.30',stroke:'#be308c','stroke-width':4});
+ svgElement(svg,'line',{x1:cx-half,y1:cy+half+13,x2:cx+half,y2:cy+half+13,stroke:'#8b3c92','stroke-width':2});
+ svgElement(svg,'text',{x:cx,y:cy+half+31,'text-anchor':'middle',fill:'#6f407c','font-family':'Arial,sans-serif','font-size':15,'font-weight':700},'20 miles');
+ svgElement(svg,'circle',{cx,cy,r:7,fill:'#be308c',stroke:'#fff','stroke-width':3});
+ const nearby=territories.filter(t=>t.state===state&&t.id!==chosen.id)
+ .map(t=>({...t,dist:Math.hypot(px(t)-cx,py(t)-cy)}))
+ .filter(t=>t.dist>70&&t.dist<230).sort((a,b)=>a.dist-b.dist).slice(0,6);
+ for(const t of nearby){
+  const x=px(t),y=py(t);if(x<35||x>635||y<25||y>305)continue;
+  svgElement(svg,'circle',{cx:x,cy:y,r:4,fill:'#7659bc',stroke:'#fff','stroke-width':1.7});
+  svgElement(svg,'text',{x:x+9,y:y-8,fill:'#594b76','font-family':'Arial,sans-serif','font-size':12,'font-weight':700},t.city);
+ }
+ svgElement(svg,'text',{x:cx+11,y:cy-13,fill:'#402a58','font-family':'Arial,sans-serif','font-size':17,'font-weight':700},chosen.city);
+ svgElement(svg,'text',{x:640,y:25,'text-anchor':'middle',fill:'#64517e','font-family':'Arial,sans-serif','font-size':13,'font-weight':700},'N ↑');
+ const note=document.createElement('p');note.className='map-schematic-note';
+ note.textContent='City-centered geographic diagram (not a street map). Pink square = approximately 20 × 20 miles; final assignments require approval.';
+ panel.append(note);mapFallback.replaceChildren(panel);
+}
+  function showMapFallback(){
+ if(!mapFallback)return;
+ updateMapFallback();mapFallback.classList.remove('is-hidden');imageryReady=false;
+}
+  function visibleTileCoverage(){
+ const viewport=$('territory-map').getBoundingClientRect();
+ if(viewport.width<100||viewport.height<100)return 0;
+ const tiles=Array.from(document.querySelectorAll('#territory-map .leaflet-tile-loaded'))
+ .filter(img=>img.complete&&img.naturalWidth>0).map(img=>img.getBoundingClientRect());
+ let hits=0;const columns=10,rows=8;
+ for(let y=0;y<rows;y++)for(let x=0;x<columns;x++){
+  const xx=viewport.left+(x+.5)*viewport.width/columns;
+  const yy=viewport.top+(y+.5)*viewport.height/rows;
+  if(tiles.some(tile=>tile.left<=xx&&xx<tile.right&&tile.top<=yy&&yy<tile.bottom))hits++;
+ }
+ return hits/(columns*rows);
+}
+  function hideMapFallbackIfTilesReady(){
+ if(!mapFallback)return;
+ imageryReady=visibleTileCoverage()>=0.95;
+ mapFallback.classList.toggle('is-hidden',imageryReady);
+}
+  function scheduleMapCheck(){
+ clearTimeout(mapCheckTimer);
+ mapCheckTimer=setTimeout(hideMapFallbackIfTilesReady,200);
+}
+
   $('fl-count').textContent = territories.filter(t => t.state === 'FL').length;
   $('ny-count').textContent = territories.filter(t => t.state === 'NY').length;
 
@@ -67,52 +137,69 @@
     });
     $('territory-title').textContent=state==='FL'?'Florida territories':'New York territories';
     renderList();
+    showMapFallback();
     renderMap(true);
     if(scrollToList) document.querySelector('.territory-toolbar').scrollIntoView({behavior:'smooth',block:'start'});
   }
-  function renderList() {
-    const q=search.value.trim().toLowerCase();
-    const items=territories.filter(t=>t.state===state&&`${t.city} ${t.region}`.toLowerCase().includes(q));
-    $('territory-count').textContent=`${items.length} cities`;
-    list.replaceChildren();
-    if (!items.length) {const p=document.createElement('p');p.className='muted';p.style.padding='12px';p.textContent='No matching territories. Try another city.';list.append(p);return;}
-    for(const t of items){
-      const btn=document.createElement('button');btn.type='button';btn.setAttribute('role','listitem');
-      btn.className=`territory-option${chosen?.id===t.id?' active':''}`;
-      btn.innerHTML=`<span><strong>${t.city.replaceAll('&','&amp;')}</strong><small>${t.region} · 20 × 20 miles</small></span><span class="arrow" aria-hidden="true">→</span>`;
-      btn.setAttribute('aria-label',`View ${t.city}, ${t.state} territory`);
-      btn.addEventListener('click',()=>setSelected(t));
-      list.append(btn);
-    }
-  }
-  function renderMap(focusChosen) {
-    if(!map || !window.L)return;
-    layers.clearLayers();
-    const items=territories.filter(t=>t.state===state);
-    const all=[];
-    items.forEach(t=>{
-      const active=chosen?.id===t.id;
-      const rectangle=L.rectangle(bounds(t),{
-        color:active?'#e650b4':'#7952e8', weight:active?3:1.4,
-        fillColor:active?'#eb72c6':'#9577df',fillOpacity:active?.22:.09,
-      }).addTo(layers);
-      rectangle.bindPopup(`<strong>${t.city}, ${t.state}</strong><p>Approximate 20 × 20 mile planning square.<br>Final roster confirmed in writing.</p>`);
-      rectangle.on('click',()=>setSelected(t));
-      all.push(bounds(t));
-    });
-    if(focusChosen && chosen?.state===state) map.fitBounds(bounds(chosen),{padding:[30,30],maxZoom:10});
-    else if(all.length) map.fitBounds(L.latLngBounds(all.flat()),{padding:[18,18]});
-  }
+  function renderList(){
+ const q=search.value.trim().toLowerCase();
+ const items=territories.filter(t=>t.state===state&&`${t.city} ${t.region}`.toLowerCase().includes(q));
+ $('territory-count').textContent=`${items.length} cities`;
+ const previousScroll=list.scrollTop;list.replaceChildren();
+ if(!items.length){const p=document.createElement('p');p.className='muted';p.style.padding='12px';p.textContent='No matching territories. Try another city.';list.append(p);return;}
+ for(const t of items){
+  const btn=document.createElement('button');btn.type='button';btn.setAttribute('role','listitem');
+  btn.className=`territory-option${chosen?.id===t.id?' active':''}`;
+  btn.innerHTML=`<span><strong>${t.city.replaceAll('&','&amp;')}</strong><small>${t.region} · 20 × 20 miles</small></span><span class="arrow" aria-hidden="true">→</span>`;
+  btn.setAttribute('aria-label',`View ${t.city}, ${t.state} territory`);
+  btn.addEventListener('click',()=>setSelected(t));list.append(btn);
+ }
+ list.scrollTop=previousScroll;
+ const selectedOption=list.querySelector('.territory-option.active');
+ if(selectedOption){
+  const listRect=list.getBoundingClientRect(),optionRect=selectedOption.getBoundingClientRect();
+  if(optionRect.top<listRect.top)list.scrollTop-=listRect.top-optionRect.top+8;
+  else if(optionRect.bottom>listRect.bottom)list.scrollTop+=optionRect.bottom-listRect.bottom+8;
+ }
+}
+  function renderMap(focusChosen){
+ if(!map||!window.L)return;
+ layers.clearLayers();
+ const items=territories.filter(t=>t.state===state),all=[];
+ items.forEach(t=>{
+  const active=chosen?.id===t.id;
+  const rectangle=L.rectangle(bounds(t),{
+   color:active?'#c23191':'#7952e8',weight:active?4:1.5,
+   fillColor:active?'#ee80c2':'#9577df',fillOpacity:active?.28:.09
+  }).addTo(layers);
+  rectangle.bindPopup(`<strong>${t.city}, ${t.state}</strong><p>Proposed 20 × 20-mile territory.<br>Final store roster confirmed in writing.</p>`);
+  rectangle.on('click',()=>setSelected(t));all.push(bounds(t));
+ });
+ map.invalidateSize({pan:false});
+ if(focusChosen&&chosen?.state===state)map.fitBounds(bounds(chosen),{padding:[45,45],maxZoom:11,animate:false});
+ else if(all.length)map.fitBounds(L.latLngBounds(all.flat()),{padding:[24,24],animate:false});
+ scheduleMapCheck();
+}
   function initMap(){
-    if(!window.L)return;
-    const fallback=document.querySelector('.map-fallback');if(fallback)fallback.remove();
-    map=L.map('territory-map',{scrollWheelZoom:false}).setView([27.9,-81.6],7);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-      maxZoom:16, attribution:'© OpenStreetMap contributors',
-    }).addTo(map);
-    layers=L.layerGroup().addTo(map);
-    renderMap(false);
-  }
+ showMapFallback();if(!window.L)return;
+ try{
+  map=L.map('territory-map',{scrollWheelZoom:false,zoomControl:true}).setView([27.9,-81.6],7);
+  const imagery=L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{
+   maxZoom:18,attribution:'&copy; OpenStreetMap contributors &copy; CARTO',subdomains:'abcd',crossOrigin:true
+  });
+  imagery.on('loading',()=>{if(!imageryReady)showMapFallback()});
+  imagery.on('tileload',scheduleMapCheck);
+  imagery.on('tileerror',showMapFallback);
+  imagery.on('load',scheduleMapCheck);
+  imagery.addTo(map);layers=L.layerGroup().addTo(map);
+  map.on('moveend',scheduleMapCheck);
+  renderMap(false);map.whenReady(()=>scheduleMapCheck());
+  if(window.ResizeObserver)new ResizeObserver(()=>{map.invalidateSize({pan:false});scheduleMapCheck()}).observe($('territory-map'));
+ }catch(error){
+  console.warn('Street map unavailable; geographic territory diagram remains visible.');
+  showMapFallback();
+ }
+}
   document.querySelectorAll('.state-tab').forEach(btn=>btn.addEventListener('click',()=>{
     state=btn.dataset.state; chosen=territories.find(t=>t.state===state);search.value='';setSelected(chosen);
     renderMap(false);
@@ -135,7 +222,7 @@
   }
   formState.addEventListener('change',()=>populateTerritories());
   chosen=territories[0];setSelected(chosen);
-  if(document.readyState==='complete')initMap();else window.addEventListener('load',initMap,{once:true});
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initMap,{once:true});else initMap();
 
   function applicationText(d){
     const t=selectedByID(d.territory);
