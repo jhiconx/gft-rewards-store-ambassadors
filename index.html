@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fbf9ff">
+  <meta name="description" content="Become a GFT Rewards Store Ambassador in Florida or New York. Bilingual English/Spanish representatives help neighborhood grocers join GFT Rewards in 20-by-20-mile territories.">
+  <title>Store Ambassador Program | GFT Rewards × Iconx</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoXwE5LAO3o+2w=" crossorigin="">
+  <link rel="stylesheet" href="./styles.css">
+  <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script defer src="./app.js"></script>
+</head>
+<body>
+  <header>
+    <div class="wrap header-row">
+      <a class="logo" href="#top" aria-label="GFT Rewards Store Ambassadors home"><span class="mark" aria-hidden="true"></span><span>GFT Rewards</span></a>
+      <nav class="nav" aria-label="Primary navigation">
+        <a class="desktop-link" href="#territories">Territories</a>
+        <a class="desktop-link" href="#compensation">Compensation</a>
+        <a class="pillbtn" href="#ambassador-application">Apply to represent your territory</a>
+      </nav>
+    </div>
+  </header>
+  <main id="top">
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <span class="eyebrow">Florida + New York store ambassador program</span>
+          <h1>Own your territory.<br><span class="grad">Grow rewards.</span></h1>
+          <p class="lede">Help neighborhood grocers join <strong>GFT Rewards</strong>. Introduce store owners to the platform, guide approved stores through onboarding, and support their first shopper-rewards promotion. Work locally with Iconx.io, a registered GFT Rewards agency.</p>
+          <div class="tagline" aria-label="Program highlights">
+            <span class="tag">$25 per qualified store signup</span>
+            <span class="tag">$1 per unique first-promotion redemption</span>
+            <span class="tag">$500 territory completion bonus</span>
+            <span class="tag">English + Spanish required</span>
+          </div>
+          <div class="hero-actions">
+            <a class="pillbtn gradient" href="#ambassador-application">Apply to be an ambassador <span aria-hidden="true">→</span></a>
+            <a class="pillbtn light" href="#territories">Find your territory</a>
+          </div>
+          <p class="note">The $25 payment is earned after a qualifying store is approved and signs up—not just after a meeting. Incentive eligibility, roster targets and applicable compensation are defined in the written agreement.</p>
+        </div>
+        <div class="illustration" role="group" aria-label="Three milestones for a GFT Rewards Store Ambassador">
+          <div class="float-label">YOU = LOCAL STORE CONNECTOR ✦</div>
+          <div class="bigicon" aria-hidden="true">✦</div>
+          <div class="illus-cta-row"><a href="#ambassador-application" class="pillbtn gradient">Submit My Application <span aria-hidden="true">→</span></a></div>
+          <div class="illus-title">From the first store meeting to its first live reward.</div>
+          <div class="illus-card"><span>🤝</span><div><strong>Arrange store meetings</strong><small>Introduce independent grocers to GFT Rewards</small></div></div>
+          <div class="illus-card"><span>🏪</span><div><strong>Get approved stores signed up</strong><small>Help complete onboarding with the GFT team</small></div></div>
+          <div class="illus-card"><span>📱</span><div><strong>Train + support the first promotion</strong><small>Help staff confidently launch shopper rewards</small></div></div>
+          <p class="illus-bilingual">ENGLISH + ESPAÑOL <strong>· Bilingual ambassadors only</strong></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="role">
+      <div class="wrap">
+        <div class="center"><span class="eyebrow">What you'll actually do</span><h2>Make introductions. <span class="grad">Launch stores.</span></h2><p>You'll connect local grocers to GFT Rewards, learn the software, and help each approved store get started—not operate their rewards program indefinitely.</p></div>
+        <div class="cards">
+          <article class="card"><div class="card-icon">📅</div><h3>Introduce + connect</h3><p>Meet store owners and managers in your assigned territory. Arrange qualified conversations with the GFT Rewards / Iconx onboarding team.</p></article>
+          <article class="card"><div class="card-icon">🎓</div><h3>Onboard + train</h3><p>Complete GFT Rewards platform training. Help approved stores register, understand phone-number rewards at checkout, and train their staff in English and Spanish.</p></article>
+          <article class="card"><div class="card-icon">🙌</div><h3>Support their first promotion</h3><p>Coordinate with GFT on launch readiness, POS compatibility and first-campaign support. Verified unique redemptions are tracked by the platform.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section stripe" id="territories">
+      <div class="wrap">
+        <div class="center"><span class="eyebrow">Your neighborhood. Your territory.</span><h2>One local market. <span class="grad">One clear mission.</span></h2><p>Explore proposed 20-mile × 20-mile planning territories centered on major cities across Florida and New York. Select a location to view its coverage and apply.</p></div>
+        <div class="territory-toolbar">
+          <div class="state-tabs" role="group" aria-label="Select state">
+            <button class="state-tab active" type="button" data-state="FL" aria-pressed="true">☀️ Florida <span id="fl-count" class="tab-count"></span></button>
+            <button class="state-tab" type="button" data-state="NY" aria-pressed="false">🗽 New York <span id="ny-count" class="tab-count"></span></button>
+          </div>
+          <label class="territory-search"><span class="sr-only">Search territories by city</span><span aria-hidden="true">⌕</span><input type="search" id="territory-search" placeholder="Search a city or market…" autocomplete="off"></label>
+        </div>
+        <div class="territory-layout">
+          <div class="territory-panel">
+            <div class="territory-panel-head"><strong id="territory-title">Florida territories</strong><span id="territory-count" class="count-pill"></span></div>
+            <div class="territory-list" id="territory-list" role="list" aria-label="Available territory planning centers"><p class="muted">Loading territories…</p></div>
+          </div>
+          <div class="territory-map-column">
+            <div class="map-card"><div id="territory-map" role="region" aria-label="Map of proposed 20 mile by 20 mile territories"><div class="map-fallback">Interactive territory map requires an internet connection. Select a city from the list to see its details.</div></div></div>
+            <div class="territory-detail" id="territory-detail" aria-live="polite">
+              <div><span class="eyebrow compact">Proposed territory</span><h3 id="selected-name">Select a city</h3><p id="selected-meta" class="muted">Each territory is planned as a 20 × 20 mile square centered on a city.</p></div>
+              <a id="territory-apply-link" href="#ambassador-application" class="pillbtn gradient">Apply for this territory →</a>
+            </div>
+          </div>
+        </div>
+        <p class="comp-terms">Territory squares are geographic planning guides (approximately 400 square miles each), not final borders, ownership rights, or exclusive assignments. Neighboring squares may overlap. The approved store roster and any exclusivity are confirmed in writing before work starts; stores are attributed to one approved ambassador for payout purposes.</p>
+      </div>
+    </section>
+
+    <section class="section comp-section" id="compensation">
+      <div class="wrap">
+        <div class="center"><span class="eyebrow">Store-based ambassador compensation</span><h2>Onboard stores. Support their first offer. <span class="grad">Earn as they succeed.</span></h2><p>The same three payout amounts as the campus program, adapted to verified grocery-store onboarding and first-promotion activity.</p></div>
+        <div class="cards comp-cards">
+          <article class="card comp-card"><div class="card-icon">🤝</div><div class="comp-value">$25</div><h3>One-time payment per signed-up store</h3><p>Introduce a qualified store and arrange a meeting. When the store is approved by GFT Rewards and completes its qualifying platform signup, you earn one $25 payment. A meeting alone does not trigger the payout.</p></article>
+          <article class="card comp-card"><div class="card-icon">🏪</div><div class="comp-value">$1</div><h3>Per verified unique redemption — first promotion</h3><p>For each store attributed to you, earn $1 per verified, nonduplicate unique shopper redemption during that store's <strong>first eligible promotion only</strong>. The measurement window is defined in the written compensation plan.</p></article>
+          <article class="card comp-card"><div class="card-icon">🏁</div><div class="comp-value">$500</div><h3>One-time territory completion bonus</h3><p>Earn a final <strong>$500 bonus</strong> when <strong>every store on your pre-approved territory roster</strong> completes qualifying signup and its first eligible promotion. The store roster is agreed upon in writing before work begins.</p></article>
+        </div>
+        <p class="comp-terms">The written compensation plan will define qualifying stores, verified nonduplicate redemptions, the first-promotion measurement window, attribution, territory rosters, payment timing, and any compensation legally required for work performed. Incentive payments do not replace wages owed under applicable law.</p>
+      </div>
+    </section>
+
+    <section class="apply-area" id="apply">
+      <div class="wrap apply-grid">
+        <div>
+          <span class="eyebrow">Get on the list</span>
+          <h2>Represent the neighborhood <span class="grad">you know best.</span></h2>
+          <p class="muted">We're looking for reliable local connectors with retail relationships, strong communication skills, and the ability to explain the GFT Rewards platform in both English and Spanish.</p>
+          <ul class="benefits">
+            <li><span class="check">✓</span><span>You can hold store-owner conversations in <strong>English and Spanish</strong></span></li>
+            <li><span class="check">✓</span><span>You know independent grocers and local retail neighborhoods</span></li>
+            <li><span class="check">✓</span><span>You can arrange meetings and reliably follow through</span></li>
+            <li><span class="check">✓</span><span>You'll complete the <strong>GFT Rewards platform training</strong> before representing the program</span></li>
+            <li><span class="check">✓</span><span>You can support stores through their first eligible promotion</span></li>
+          </ul>
+          <p class="fine">Applications are reviewed individually. Applying does not guarantee selection, a territory assignment, paid placement, or an exclusive territory. Compensation and operating expectations are provided in writing before work begins.</p>
+          <div class="agency-note"><span class="agency-star">✦</span><div><strong>GFT Rewards</strong><small>Recruiting and field coordination by <strong>Iconx.io</strong><br>A Registered GFT Rewards Agency</small></div></div>
+        </div>
+        <div class="application" id="ambassador-application">
+          <h2>Apply for your territory</h2><p class="muted application-subtitle">Just the basics. The Iconx recruiting team will follow up if there's a fit.</p>
+          <form id="ambassador-form">
+            <div class="formgrid">
+              <div class="field full"><label for="full_name">Full name <span class="required">*</span></label><input id="full_name" name="full_name" autocomplete="name" maxlength="150" required placeholder="First and last name"></div>
+              <div class="field"><label for="email">Email <span class="required">*</span></label><input id="email" name="email" type="email" autocomplete="email" maxlength="254" required placeholder="you@example.com"></div>
+              <div class="field"><label for="mobile">Mobile phone <span class="required">*</span></label><input id="mobile" name="mobile" type="tel" autocomplete="tel" maxlength="40" minlength="7" required placeholder="(555) 555-1234"></div>
+              <div class="field"><label for="state">State <span class="required">*</span></label><select name="state" id="state" required><option value="">Select a state</option><option value="FL">Florida</option><option value="NY">New York</option></select></div>
+              <div class="field"><label for="territory">Preferred territory <span class="required">*</span></label><select name="territory" id="territory" required disabled><option value="">Choose a state first</option></select></div>
+              <div class="field full"><label for="base_city">Your city or ZIP code <span class="required">*</span></label><input name="base_city" id="base_city" maxlength="120" required placeholder="Where are you based?"></div>
+              <div class="field full"><label for="retail_experience">Store or sales experience <span class="muted">(optional)</span></label><textarea name="retail_experience" id="retail_experience" maxlength="1600" placeholder="Tell us about your experience with independent grocers, retail operations, local sales, or field marketing"></textarea></div>
+            </div>
+            <label class="consent language-check"><input name="bilingual" type="checkbox" id="bilingual" required><span>I can confidently meet with store owners and train staff in <strong>both English and Spanish</strong>. I understand that completing GFT Rewards training is required before field assignments. <span class="required">*</span></span></label>
+            <label class="consent"><input name="consent" type="checkbox" id="consent" required><span>I agree that Iconx.io may contact me by email or phone regarding my GFT Rewards Store Ambassador application. This is not consent to recurring promotional texts. <span class="required">*</span></span></label>
+            <div class="trap" aria-hidden="true"><label for="website">Leave this field empty</label><input name="website" id="website" tabindex="-1" autocomplete="off"></div>
+            <button class="pillbtn gradient submit" id="submit-application" type="submit">Submit my application <span aria-hidden="true">→</span></button>
+            <div class="status" id="form-status" role="status" aria-live="polite"></div>
+            <p class="fine">Application delivery requires the configured recruiting service. If it is unavailable, the page will offer an email draft to <strong>rcramer@iconx.io</strong>; sending that email completes the fallback submission. Contact details are not displayed publicly.</p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section class="section faq-section"><div class="wrap faq-wrap"><div class="center"><span class="eyebrow">The essentials</span><h2>Quick questions</h2></div>
+      <details class="faq"><summary>Do I need to speak both English and Spanish?</summary><p>Yes. Ambassadors are expected to hold store-owner conversations and guide store teams through GFT Rewards onboarding in English and Spanish. GFT platform training is required before field assignments.</p></details>
+      <details class="faq"><summary>Does setting up a meeting earn the $25 payment?</summary><p>No. The $25 is earned once an approved, qualifying store attributed to you completes its GFT Rewards platform signup. Introductions and meetings are part of the work, but do not independently trigger the incentive.</p></details>
+      <details class="faq"><summary>What counts toward the $1 redemption payout?</summary><p>Only verified, nonduplicate unique shopper redemptions from each attributed store's first eligible promotion, within the agreed measurement window. GFT Rewards records determine qualifying redemption counts under the written plan.</p></details>
+      <details class="faq"><summary>How do I earn the $500 territory bonus?</summary><p>The one-time bonus is triggered after every store on your pre-approved territory roster completes qualifying registration and its first eligible promotion. The roster and completion rules must be confirmed in writing before work begins.</p></details>
+      <details class="faq"><summary>Is a 20 × 20-mile territory exclusively mine?</summary><p>Not automatically. These are proposed geographic planning zones. Final territory assignment, store attribution and any exclusivity are decided in the written ambassador agreement. Some proposed zones overlap.</p></details>
+      <details class="faq"><summary>Can I sign up any store right away?</summary><p>No. Stores must be approved by the GFT team, including any necessary point-of-sale or technical readiness checks, before a qualifying signup or promotion can be completed.</p></details>
+      <details class="faq"><summary>Is this a Sampling For Good role?</summary><p>No. This is a separate grocery-store recruitment and onboarding program for GFT Rewards. Iconx.io remains the recruiting and field agency.</p></details>
+    </div></section>
+  </main>
+  <footer><strong>GFT Rewards Store Ambassadors</strong> · Field recruiting by <a href="https://iconx.io" target="_blank" rel="noopener noreferrer">Iconx.io</a>, A Registered GFT Rewards Agency · <a href="https://gftrewards.com" target="_blank" rel="noopener noreferrer">About GFT Rewards</a></footer>
+</body>
+</html>
