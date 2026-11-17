@@ -1,0 +1,9 @@
+{
+  "name": "gft-rewards-store-ambassadors",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Standalone GFT Rewards Store Ambassador recruiting site for Florida and New York, operated by Iconx.io",
+  "scripts": {
+    "check": "node --check app.js && node --check api/apply.js"
+  }
+}
