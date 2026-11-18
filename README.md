@@ -15,16 +15,22 @@ Standalone GFT Rewards field-recruiting page for **Florida and New York**, coord
 - Searchable city list, state toggle, click-to-select geographic tiles and application territory picker.
 - The street map uses Leaflet / OpenStreetMap tiles when available. If tiles do not fully load, a real embedded map (Google Maps, with an OpenStreetMap alternative) appears beneath the pink 20 × 20-mile planning box. The embedded view's box is illustrative; Leaflet's geographic rectangle follows the approximate mile coordinates.
 
+## Application delivery — existing Iconx stack
+
+Applications are posted to the dedicated Supabase Edge Function `gft-store-ambassador-apply` in existing project `yxfqfrgjjbxagrioeqzz`. The handler writes to a separate private RLS table `public.gft_store_ambassador_applications` and uses the existing Supabase server-side `RESEND_API_KEY` and existing verified sender configuration (`AMBASSADOR_FROM_EMAIL` or `SAMPLE_FROM_EMAIL`, with fallback `no-reply@send.iconx.io`). It submits recruiting notifications to **rcramer@iconx.io** and **support@gftrewards.com**. No applicant email app is involved. The application form displays a confirmation only after Resend accepts the notification request; otherwise it shows an inline error and retains the submission ID for safe retries.
+
+The website uses the Edge Function directly; `api/apply.js` is a same-origin proxy fallback for connectivity issues. Application data is not public, and the Sampling For Good application function/table are unchanged.
+
 ## Deploy on a completely NEW GitHub repository and Vercel project
 
 1. Create a **new**, empty GitHub repository named `gft-rewards-store-ambassadors` (not in `sampling-for-good-marketplace`).
 2. Upload *these files* to that new repository, preserving `api/apply.js`.
 3. In Vercel, select **Add New → Project → Import Git Repository**, select the new repository and use Framework Preset **Other**, Root Directory **./**, Build Command **none**, Output Directory **leave blank**.
 4. Deploy. Vercel will serve `/` from `index.html` and expose `/api/apply` as a serverless function.
-5. Configure environment variables in Vercel for production and preview: `RESEND_API_KEY`, `GFT_APPLICATION_FROM` (a verified Resend sender for Iconx), and optional `GFT_APPLICATION_TO` (extra comma-separated recipient addresses, if needed). Every application is addressed to **both** `rcramer@iconx.io` and `support@gftrewards.com`, even if extra recipients are configured. Redeploy.
+5. The dedicated GFT Supabase Edge Function uses Resend credentials already managed as secrets in the existing Iconx Supabase project. No new email keys are required in Vercel.
 6. Test a form submission and confirm receipt in the recruitment inbox before using the page publicly.
 
-**When Resend is not configured or returns an error:** the application page opens the user's email app with the application populated for `rcramer@iconx.io` and with `support@gftrewards.com` CC'd. The user must press Send; the site explicitly does **not** claim that an application was received.
+**When Resend is unavailable or rejects a notification:** the application form displays an inline error; it never opens a local email program. If storage already succeeded, the saved submission can be retried without a duplicate application.
 
 ## Local preview
 
