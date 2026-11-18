@@ -55,40 +55,72 @@
  if(label!==undefined)element.textContent=label;
  parent.append(element);return element;
 }
+  // Keep an actual street map behind the territory box even if raster tiles fail.
+  // The embedded preview is fixed-center so its planning box stays in place.
+  let mapProvider='google', fallbackKey='';
+  function embeddedMapURL(t){
+    if(mapProvider==='google'){
+      return 'https://www.google.com/maps?q='+encodeURIComponent(t.lat+','+t.lng)+'&z=10&output=embed';
+    }
+    const latMargin=16/69.0;
+    const lngMargin=30/(69.172*Math.cos(t.lat*Math.PI/180));
+    const bbox=[t.lng-lngMargin,t.lat-latMargin,t.lng+lngMargin,t.lat+latMargin].map(n=>n.toFixed(6)).join('%2C');
+    return 'https://www.openstreetmap.org/export/embed.html?bbox='+bbox+'&layer=mapnik&marker='+t.lat+'%2C'+t.lng;
+  }
   function updateMapFallback(){
- if(!mapFallback||!chosen)return;
- const panel=document.createElement('div');panel.className='map-schematic';
- const heading=document.createElement('div');heading.className='map-schematic-heading';
- heading.textContent=`${chosen.city}, ${state} · Your proposed 20 × 20-mile territory`;
- panel.append(heading);
- const svg=svgElement(panel,'svg',{viewBox:'0 0 680 344',role:'img',
- 'aria-label':`Geographic overview centered on ${chosen.city}, ${state}, with a 20 by 20 mile square highlighted`,
- preserveAspectRatio:'xMidYMid meet'});
- svgElement(svg,'rect',{x:0,y:0,width:680,height:344,rx:12,fill:'#edf4fc'});
- for(let col=40;col<680;col+=40)svgElement(svg,'line',{x1:col,y1:0,x2:col,y2:344,stroke:'#d9e4f3','stroke-width':1});
- for(let row=24;row<344;row+=40)svgElement(svg,'line',{x1:0,y1:row,x2:680,y2:row,stroke:'#d9e4f3','stroke-width':1});
- const scale=7.2,cx=340,cy=166;
- const px=t=>cx+(t.lng-chosen.lng)*69.172*Math.cos(chosen.lat*Math.PI/180)*scale;
- const py=t=>cy-(t.lat-chosen.lat)*69*scale;
- const half=10*scale;
- svgElement(svg,'rect',{x:cx-half,y:cy-half,width:half*2,height:half*2,rx:6,fill:'#ec69b8','fill-opacity':'.30',stroke:'#be308c','stroke-width':4});
- svgElement(svg,'line',{x1:cx-half,y1:cy+half+13,x2:cx+half,y2:cy+half+13,stroke:'#8b3c92','stroke-width':2});
- svgElement(svg,'text',{x:cx,y:cy+half+31,'text-anchor':'middle',fill:'#6f407c','font-family':'Arial,sans-serif','font-size':15,'font-weight':700},'20 miles');
- svgElement(svg,'circle',{cx,cy,r:7,fill:'#be308c',stroke:'#fff','stroke-width':3});
- const nearby=territories.filter(t=>t.state===state&&t.id!==chosen.id)
- .map(t=>({...t,dist:Math.hypot(px(t)-cx,py(t)-cy)}))
- .filter(t=>t.dist>70&&t.dist<230).sort((a,b)=>a.dist-b.dist).slice(0,6);
- for(const t of nearby){
-  const x=px(t),y=py(t);if(x<35||x>635||y<25||y>305)continue;
-  svgElement(svg,'circle',{cx:x,cy:y,r:4,fill:'#7659bc',stroke:'#fff','stroke-width':1.7});
-  svgElement(svg,'text',{x:x+9,y:y-8,fill:'#594b76','font-family':'Arial,sans-serif','font-size':12,'font-weight':700},t.city);
- }
- svgElement(svg,'text',{x:cx+11,y:cy-13,fill:'#402a58','font-family':'Arial,sans-serif','font-size':17,'font-weight':700},chosen.city);
- svgElement(svg,'text',{x:640,y:25,'text-anchor':'middle',fill:'#64517e','font-family':'Arial,sans-serif','font-size':13,'font-weight':700},'N ↑');
- const note=document.createElement('p');note.className='map-schematic-note';
- note.textContent='City-centered geographic diagram (not a street map). Pink square = approximately 20 × 20 miles; final assignments require approval.';
- panel.append(note);mapFallback.replaceChildren(panel);
-}
+    if(!mapFallback||!chosen)return;
+    const currentKey=chosen.id+':'+mapProvider;
+    if(fallbackKey===currentKey)return;
+    fallbackKey=currentKey;
+    const container=document.createElement('div');
+    container.className='real-map-backup';
+    const iframe=document.createElement('iframe');
+    iframe.className='real-map-frame';
+    iframe.src=embeddedMapURL(chosen);
+    iframe.title='Street map centered on '+chosen.city+', '+chosen.state;
+    iframe.loading='eager';
+    iframe.referrerPolicy='strict-origin-when-cross-origin';
+    iframe.setAttribute('tabindex','-1');
+    container.append(iframe);
+    const title=document.createElement('div');
+    title.className='real-map-heading';
+    title.textContent=chosen.city+', '+chosen.state+' — proposed 20 × 20-mile territory';
+    container.append(title);
+    const region=document.createElement('div');
+    region.className='real-map-square';
+    region.setAttribute('aria-label','Approximate 20 by 20-mile territory centered on '+chosen.city);
+    const pin=document.createElement('span');
+    pin.className='real-map-pin';
+    region.append(pin);
+    container.append(region);
+    const footer=document.createElement('div');
+    footer.className='real-map-footer';
+    const note=document.createElement('span');
+    note.textContent='Pink box: approximate territory planning area';
+    footer.append(note);
+    const actions=document.createElement('div');
+    actions.className='real-map-actions';
+    [['google','Google'],['osm','OpenStreetMap']].forEach(([provider,label])=>{
+      const button=document.createElement('button');
+      button.type='button';button.className='real-map-provider';
+      button.textContent=label;
+      button.setAttribute('aria-pressed',String(provider===mapProvider));
+      if(provider===mapProvider)button.classList.add('active');
+      button.addEventListener('click',()=>{
+        if(mapProvider===provider)return;
+        mapProvider=provider;fallbackKey='';updateMapFallback();
+      });
+      actions.append(button);
+    });
+    const link=document.createElement('a');
+    link.className='real-map-open';
+    link.href='https://www.openstreetmap.org/?mlat='+chosen.lat+'&mlon='+chosen.lng+'#map=10/'+chosen.lat+'/'+chosen.lng;
+    link.target='_blank';link.rel='noopener noreferrer';link.textContent='Open full map ↗';
+    actions.append(link);
+    footer.append(actions);
+    container.append(footer);
+    mapFallback.replaceChildren(container);
+  }
   function showMapFallback(){
  if(!mapFallback)return;
  updateMapFallback();mapFallback.classList.remove('is-hidden');imageryReady=false;
@@ -184,8 +216,8 @@
  showMapFallback();if(!window.L)return;
  try{
   map=L.map('territory-map',{scrollWheelZoom:false,zoomControl:true}).setView([27.9,-81.6],7);
-  const imagery=L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{
-   maxZoom:18,attribution:'&copy; OpenStreetMap contributors &copy; CARTO',subdomains:'abcd',crossOrigin:true
+  const imagery=L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{
+   maxZoom:18,attribution:'&copy; OpenStreetMap contributors',crossOrigin:true
   });
   imagery.on('loading',()=>{if(!imageryReady)showMapFallback()});
   imagery.on('tileload',scheduleMapCheck);
