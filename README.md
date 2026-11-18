@@ -34,11 +34,11 @@ The website uses the Edge Function directly; `api/apply.js` is a same-origin pro
 
 ## Local preview
 
-Run `python3 -m http.server 8000` from this folder and open `http://localhost:8000`. The interface, territory map and email draft fallback work, but direct `/api/apply` delivery requires Vercel and the configured Resend environment variables.
+Run `python3 -m http.server 8000` from this folder and open `http://localhost:8000`. The interface and territory map work locally; the form submits directly to the configured Supabase Edge Function, which sends via Resend. No Mac email application is used. The same-origin `/api/apply` proxy requires Vercel.
 
 ## Data handling / limitations
 
-The website does not store applications in a public browser database or log applicant data. Direct applications are sent via Resend to the configured recruiting inbox; no CRM or application dashboard is included. The client includes a bot honeypot and the server validates required fields. Production hardening can add a rate limiter, CAPTCHA, or an application tracking database as needed.
+The GFT-specific Supabase table stores applications with Row Level Security enabled and no anonymous policies. The Edge Function sends via Resend to two defined recruiting inboxes; there is no public CRM or application dashboard. The client includes a honeypot; the Edge Function validates fields and rate-limits repeated submissions per email and territory. CAPTCHA can be added if spam appears.
 
 The city-center coordinates are representative planning points. The website is not a GIS survey or a legal definition of territory. Adjacent city squares may overlap. Written store rosters and verified payout rules govern.
 
