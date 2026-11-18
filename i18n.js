@@ -115,6 +115,7 @@
     'Leave this field empty':'Deja este campo vacío',
     'Submit my application':'Enviar mi solicitud',
     'Application delivery requires the configured recruiting service. If it is unavailable, the page will offer an email draft to':'El envío automático requiere que el servicio de contratación esté configurado. Si no está disponible, la página ofrecerá un borrador de correo dirigido a',
+    ' and copies ':' y envía una copia a ',
     '; sending that email completes the fallback submission. Contact details are not displayed publicly.':'; deberás enviarlo para completar la solicitud alternativa. Tus datos de contacto no se muestran públicamente.',
     'The essentials':'Lo esencial',
     'Quick questions':'Preguntas frecuentes',
