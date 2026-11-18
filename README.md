@@ -11,7 +11,7 @@ Standalone GFT Rewards field-recruiting page for **Florida and New York**, coord
 - Ambassadors **must speak English and Spanish** and **must complete GFT platform training**.
 - 18 proposed Florida and 20 proposed New York city-centered territories, each approximately **20 × 20 statute miles (400 square miles)**. Overlapping squares are planning concepts, not exclusivity promises. Assigned store rosters are definitive.
 - Searchable city list, state toggle, click-to-select geographic tiles and application territory picker.
-- Map uses Leaflet 1.9.4 / OpenStreetMap via CDN; the rest of the site remains usable if tiles are unavailable.
+- The street map uses Leaflet / OpenStreetMap tiles when available. If tiles do not fully load, a real embedded map (Google Maps, with an OpenStreetMap alternative) appears beneath the pink 20 × 20-mile planning box. The embedded view's box is illustrative; Leaflet's geographic rectangle follows the approximate mile coordinates.
 
 ## Deploy on a completely NEW GitHub repository and Vercel project
 
