@@ -29,3 +29,12 @@
 .real-map-provider.active{background:#e8d9fd;border-color:#a880da;color:#533073}
 .real-map-open{color:#69439f;text-decoration:underline;text-underline-offset:2px;padding:4px}
 @media(max-width:600px){.real-map-heading{font-size:11px;padding:7px 9px}.real-map-footer{font-size:10px}.real-map-square{width:min(58%,200px)}}
+
+/* English / Spanish controls and four-card compensation grid */
+.language-toggle{display:inline-flex;align-items:center;padding:4px;gap:3px;border:1px solid #e2d8ee;border-radius:99px;background:#f7f2ff;flex:none}
+.language-choice{border:0;border-radius:99px;background:transparent;cursor:pointer;padding:7px 10px;color:#765b90;font:800 12px Manrope,system-ui,sans-serif}
+.language-choice.active{background:#fff;color:#50347b;box-shadow:0 2px 9px #50347b20}
+.language-choice:focus-visible{outline:3px solid #9171f4;outline-offset:2px}
+.comp-cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media(max-width:920px){.comp-cards .comp-card:last-child{grid-column:auto}}
+@media(max-width:600px){.comp-cards{grid-template-columns:1fr}header{height:auto;min-height:70px;padding:8px 0}.header-row{flex-wrap:wrap;row-gap:6px}.nav{width:100%;justify-content:space-between;gap:8px}.nav .pillbtn{flex:1;white-space:normal;font-size:11px;line-height:1.2;padding:10px 11px}.language-choice{padding:7px 9px}}
