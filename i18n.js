@@ -100,6 +100,8 @@
     'Select a state':'Selecciona un estado',
     'Florida':'Florida',
     'New York':'Nueva York',
+    '🗽 New York':'🗽 Nueva York',
+    '☀️ Florida':'☀️ Florida',
     'Preferred territory':'Territorio preferido',
     'Choose a state first':'Primero elige un estado',
     'Select your territory':'Selecciona tu territorio',
