@@ -21,10 +21,10 @@ Standalone GFT Rewards field-recruiting page for **Florida and New York**, coord
 2. Upload *these files* to that new repository, preserving `api/apply.js`.
 3. In Vercel, select **Add New → Project → Import Git Repository**, select the new repository and use Framework Preset **Other**, Root Directory **./**, Build Command **none**, Output Directory **leave blank**.
 4. Deploy. Vercel will serve `/` from `index.html` and expose `/api/apply` as a serverless function.
-5. Configure environment variables in Vercel for production and preview: `RESEND_API_KEY`, `GFT_APPLICATION_FROM` (a verified Resend sender for Iconx), and optional `GFT_APPLICATION_TO` (default `rcramer@iconx.io`). Redeploy.
+5. Configure environment variables in Vercel for production and preview: `RESEND_API_KEY`, `GFT_APPLICATION_FROM` (a verified Resend sender for Iconx), and optional `GFT_APPLICATION_TO` (extra comma-separated recipient addresses, if needed). Every application is addressed to **both** `rcramer@iconx.io` and `support@gftrewards.com`, even if extra recipients are configured. Redeploy.
 6. Test a form submission and confirm receipt in the recruitment inbox before using the page publicly.
 
-**When Resend is not configured or returns an error:** the application page opens the user's email app with the application populated for `rcramer@iconx.io`. The user must press Send; the site explicitly does **not** claim that an application was received.
+**When Resend is not configured or returns an error:** the application page opens the user's email app with the application populated for `rcramer@iconx.io` and with `support@gftrewards.com` CC'd. The user must press Send; the site explicitly does **not** claim that an application was received.
 
 ## Local preview
 
