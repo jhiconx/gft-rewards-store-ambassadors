@@ -1,7 +1,10 @@
 // Vercel serverless API. Requires RESEND_API_KEY and GFT_APPLICATION_FROM
 // configured as Vercel environment variables before direct website delivery works.
 // No secret is sent to or stored in the browser. No applicant data is logged.
-const inbox = process.env.GFT_APPLICATION_TO || 'rcramer@iconx.io';
+// Both recruiting teams receive each application. GFT_APPLICATION_TO may add optional recipients.
+const requiredRecipients = ['rcramer@iconx.io', 'support@gftrewards.com'];
+const extraRecipients = (process.env.GFT_APPLICATION_TO || '').split(/[,;]/).map(v => v.trim().toLowerCase()).filter(Boolean);
+const recipients = [...new Set([...requiredRecipients, ...extraRecipients])];
 const validStates = new Set(['FL','NY']);
 const MAX_LENGTHS={full_name:150,email:254,mobile:40,state:2,territory:12,base_city:120,retail_experience:1600,website:200};
 function clean(body){
@@ -30,7 +33,7 @@ module.exports = async function handler(req,res){
   try{
     const result=await fetch('https://api.resend.com/emails',{
       method:'POST',headers:{Authorization:`Bearer ${process.env.RESEND_API_KEY}`,'Content-Type':'application/json'},
-      body:JSON.stringify({from:process.env.GFT_APPLICATION_FROM,to:[inbox],reply_to:d.email,subject:`GFT Store Ambassador — ${d.territory} — ${d.full_name}`,html})
+      body:JSON.stringify({from:process.env.GFT_APPLICATION_FROM,to:recipients,reply_to:d.email,subject:`GFT Store Ambassador — ${d.territory} — ${d.full_name}`,html})
     });
     const data=await result.json().catch(()=>({}));
     if(!result.ok||!data.id)return res.status(502).json({ok:false,error:'Delivery was not confirmed. Use email draft fallback.'});
