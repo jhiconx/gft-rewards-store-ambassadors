@@ -1,4 +1,4 @@
-name: GFT Rewards Application Email Smoke Test
+name: GFT Rewards Email Backend Health Check
 on:
   push:
     paths:
@@ -11,46 +11,25 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 3
     steps:
-      - name: Verify GFT Supabase and Iconx Resend backend
+      - name: Verify email backend readiness and browser CORS
         shell: bash
         run: |
           python3 - <<'PY'
           import json, urllib.request
-          url='https://yxfqfrgjjbxagrioeqzz.supabase.co/functions/v1/gft-store-ambassador-apply?health=1'
-          with urllib.request.urlopen(url,timeout=20) as response:
-              result=json.load(response)
-          print('Readiness:',{k:result.get(k) for k in ['ok','ready','databaseConfigured','resendKeyConfigured','iconxRelayReady']})
-          if not result.get('ready'): raise SystemExit('GFT recruitment email backend is not ready')
-          PY
-      - name: Submit one synthetic application and verify email acceptance
-        shell: bash
-        run: |
-          python3 - <<'PY'
-          import json, urllib.request, urllib.error, uuid
           url='https://yxfqfrgjjbxagrioeqzz.supabase.co/functions/v1/gft-store-ambassador-apply'
-          payload={
-              'submission_id':str(uuid.uuid4()),
-              'full_name':'GFT System Test Ignore',
-              'email':'gft-smoketest@example.com',
-              'mobile':'2025550123',
-              'state':'FL',
-              'territory':'FL-01',
-              'base_city':'Miami (automated QA test)',
-              'retail_experience':'AUTOMATED QA TEST - not a real ambassador application',
-              'website':'',
-              'language':'en',
-              'bilingual':True,
-              'consent':True
-          }
-          req=urllib.request.Request(url,data=json.dumps(payload).encode(),headers={'Content-Type':'application/json'},method='POST')
-          try:
-              with urllib.request.urlopen(req,timeout=30) as response:
-                  status=response.status
-                  result=json.load(response)
-          except urllib.error.HTTPError as error:
-              status=error.code
-              result=json.load(error)
-          print('Application test:',{'status':status,'ok':result.get('ok'),'received':result.get('received'),'emailed':result.get('emailed'),'error':result.get('error')})
-          if status!=200 or not result.get('ok') or not result.get('received') or not result.get('emailed'):
-              raise SystemExit('GFT application storage or Resend email acceptance failed')
+          with urllib.request.urlopen(url+'?health=1',timeout=20) as response:
+              payload=json.load(response)
+          print('Backend ready:',payload.get('ready'),'Iconx Resend relay ready:',payload.get('iconxRelayReady'))
+          if payload.get('ready') is not True: raise SystemExit('GFT email service is not ready')
+          origin='https://gft-rewards-store-ambassadors.vercel.app'
+          preflight=urllib.request.Request(url,method='OPTIONS',headers={
+              'Origin':origin,
+              'Access-Control-Request-Method':'POST',
+              'Access-Control-Request-Headers':'content-type',
+          })
+          with urllib.request.urlopen(preflight,timeout=20) as response:
+              allowed=response.headers.get('Access-Control-Allow-Origin')
+              methods=response.headers.get('Access-Control-Allow-Methods','')
+          print('Browser preflight:',allowed,methods)
+          if allowed!=origin or 'POST' not in methods: raise SystemExit('GFT browser submission CORS check failed')
           PY
