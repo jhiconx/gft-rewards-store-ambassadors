@@ -173,7 +173,7 @@
   function translateDynamic(value){
     if(Object.prototype.hasOwnProperty.call(ES,value))return ES[value];
     if(value.endsWith(' cities'))return value.slice(0,-7)+' ciudades';
-    if(value.endsWith(' · 20 × 20 miles'))return value.slice(0,-14)+' · 20 × 20 millas';
+    if(value.endsWith(' · 20 × 20 miles'))return value.slice(0,-16)+' · 20 × 20 millas';
     if(value.startsWith('View ')&&value.endsWith(' territory'))return 'Ver territorio de '+value.slice(5,-10);
     if(value.startsWith('Street map centered on '))return 'Mapa de calles centrado en '+value.slice(23);
     if(value.startsWith('Approximate 20 by 20-mile territory centered on '))return 'Territorio aproximado de 20 × 20 millas centrado en '+value.slice(48);
