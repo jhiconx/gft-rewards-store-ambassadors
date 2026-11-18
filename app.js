@@ -258,12 +258,43 @@
 
   function applicationText(d){
     const t=selectedByID(d.territory);
-    return `GFT Rewards Store Ambassador Application\n\nFull name: ${d.full_name}\nEmail: ${d.email}\nMobile: ${d.mobile}\nState: ${d.state}\nPreferred territory: ${t?.city || d.territory}, ${d.state}\nBased in: ${d.base_city}\nEnglish and Spanish bilingual: Yes\nGFT platform training acknowledged: Yes\nExperience: ${d.retail_experience || 'Not provided'}\nApplication contact consent: Yes\n`;
+    const isEs=window.GFTLocale?.getLocale()==='es';
+    if(isEs) return [
+      'Solicitud: Embajador de Tiendas GFT Rewards',
+      '',
+      'Nombre completo: '+d.full_name,
+      'Correo electrónico: '+d.email,
+      'Teléfono móvil: '+d.mobile,
+      'Estado: '+d.state,
+      'Territorio preferido: '+(t?.city||d.territory)+', '+d.state,
+      'Ciudad o código postal: '+d.base_city,
+      'Bilingüe inglés y español: Sí',
+      'Capacitación en GFT: aceptada',
+      'Experiencia: '+(d.retail_experience||'No especificada'),
+      'Consentimiento de contacto: Sí',
+      ''
+    ].join('\n');
+    return [
+      'GFT Rewards Store Ambassador Application',
+      '',
+      'Full name: '+d.full_name,
+      'Email: '+d.email,
+      'Mobile: '+d.mobile,
+      'State: '+d.state,
+      'Preferred territory: '+(t?.city||d.territory)+', '+d.state,
+      'Based in: '+d.base_city,
+      'English and Spanish bilingual: Yes',
+      'GFT platform training acknowledged: Yes',
+      'Experience: '+(d.retail_experience||'Not provided'),
+      'Application contact consent: Yes',
+      ''
+    ].join('\n');
   }
   function openEmailDraft(d){
-    const subject=`GFT Store Ambassador Application — ${selectedByID(d.territory)?.city || 'Territory'}, ${d.state}`;
-    const url=`mailto:rcramer@iconx.io?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(applicationText(d))}`;
-    // Do not claim that an email was sent; an applicant still needs to send the draft.
+    const isEs=window.GFTLocale?.getLocale()==='es';
+    const subject=(isEs?'Solicitud de Embajador GFT — ':'GFT Store Ambassador Application — ')+(selectedByID(d.territory)?.city||'Territory')+', '+d.state;
+    const url='mailto:rcramer@iconx.io?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(applicationText(d));
+    // Draft creation is not an email send; user must press Send to submit.
     window.location.href=url;
     return url;
   }
@@ -290,7 +321,7 @@
       openEmailDraft(d);
       status.className='status notice';
       status.replaceChildren(document.createTextNode('An email draft should open. Please send it to complete your application. If no email app opens, '));
-      const a=document.createElement('a');a.href=`mailto:rcramer@iconx.io?subject=${encodeURIComponent(`GFT Store Ambassador Application — ${d.state}`)}&body=${encodeURIComponent(applicationText(d))}`;
+      const a=document.createElement('a');a.href=`mailto:rcramer@iconx.io?subject=${encodeURIComponent((window.GFTLocale?.getLocale()==='es'?'Solicitud de Embajador GFT — ':'GFT Store Ambassador Application — ')+d.state)}&body=${encodeURIComponent(applicationText(d))}`;
       a.textContent='open the email draft here';a.style.textDecoration='underline';status.append(a,document.createTextNode('. No application has been recorded by the website.'));
     } finally {button.disabled=false;button.textContent='Submit my application →';}
   });
