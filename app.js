@@ -256,73 +256,79 @@
   chosen=territories[0];setSelected(chosen);
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initMap,{once:true});else initMap();
 
-  function applicationText(d){
-    const t=selectedByID(d.territory);
-    const isEs=window.GFTLocale?.getLocale()==='es';
-    if(isEs) return [
-      'Solicitud: Embajador de Tiendas GFT Rewards',
-      '',
-      'Nombre completo: '+d.full_name,
-      'Correo electrónico: '+d.email,
-      'Teléfono móvil: '+d.mobile,
-      'Estado: '+d.state,
-      'Territorio preferido: '+(t?.city||d.territory)+', '+d.state,
-      'Ciudad o código postal: '+d.base_city,
-      'Bilingüe inglés y español: Sí',
-      'Capacitación en GFT: aceptada',
-      'Experiencia: '+(d.retail_experience||'No especificada'),
-      'Consentimiento de contacto: Sí',
-      ''
-    ].join('\n');
-    return [
-      'GFT Rewards Store Ambassador Application',
-      '',
-      'Full name: '+d.full_name,
-      'Email: '+d.email,
-      'Mobile: '+d.mobile,
-      'State: '+d.state,
-      'Preferred territory: '+(t?.city||d.territory)+', '+d.state,
-      'Based in: '+d.base_city,
-      'English and Spanish bilingual: Yes',
-      'GFT platform training acknowledged: Yes',
-      'Experience: '+(d.retail_experience||'Not provided'),
-      'Application contact consent: Yes',
-      ''
-    ].join('\n');
-  }
-  function openEmailDraft(d){
-    const isEs=window.GFTLocale?.getLocale()==='es';
-    const subject=(isEs?'Solicitud de Embajador GFT — ':'GFT Store Ambassador Application — ')+(selectedByID(d.territory)?.city||'Territory')+', '+d.state;
-    const url='mailto:rcramer@iconx.io?cc='+encodeURIComponent('support@gftrewards.com')+'&subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(applicationText(d));
-    // Draft creation is not an email send; user must press Send to submit.
-    window.location.href=url;
-    return url;
-  }
+  // Browser posts directly to the existing Iconx Supabase + Resend stack.
+  // No mailto:, no dependence on the visitor's operating-system email app.
+  const applicationEndpoint='https://yxfqfrgjjbxagrioeqzz.supabase.co/functions/v1/gft-store-ambassador-apply';
   const form=$('ambassador-form'),status=$('form-status'),button=$('submit-application');
-  form.addEventListener('submit', async e=>{
-    e.preventDefault(); if(button.disabled || !form.reportValidity())return;
+  let submitting=false,submitted=false,submissionId=null;
+  const generateId=()=>{
+    if(globalThis.crypto?.randomUUID)return crypto.randomUUID();
+    return '10000000-1000-4000-8000-100000000000'.replace(/[018]/g,c=>(Number(c)^(Math.random()*16>>Number(c)/4)).toString(16));
+  };
+  async function postApplication(url,payload,timeout=15000){
+    const controller=new AbortController(), timer=setTimeout(()=>controller.abort(),timeout);
+    try{
+      const r=await fetch(url,{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify(payload),
+        signal:controller.signal,
+      });
+      const data=await r.json().catch(()=>({}));
+      return {status:r.status,ok:r.ok,data};
+    }finally{clearTimeout(timer);}
+  }
+  form.addEventListener('submit',async(e)=>{
+    e.preventDefault();
+    if(submitting||submitted||!form.reportValidity())return;
     const d=Object.fromEntries(new FormData(form).entries());
-    d.bilingual=!!d.bilingual; d.consent=!!d.consent;
-    status.textContent='';status.className='status';
-    if(!d.bilingual || !d.consent){status.textContent='Bilingual confirmation and contact consent are required.';status.className='status error';return;}
-    if(d.website){status.textContent='Please contact the recruiting team to apply.';status.className='status error';return;}
-    button.disabled=true;button.textContent='Submitting application…';
-    try {
-      if(!['http:','https:'].includes(window.location.protocol)) throw new Error('Email submission needed');
-      const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),12000);
-      let r;
-      try{r=await fetch('/api/apply',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d),signal:controller.signal});}
-      finally{clearTimeout(timer);}
-      const result=await r.json().catch(()=>({}));
-      if(!r.ok||!result.ok)throw new Error('Email submission needed');
-      status.className='status ok';status.textContent='Application received by the recruiting service. Thank you!';
+    d.bilingual=!!d.bilingual;
+    d.consent=!!d.consent;
+    d.language=window.GFTLocale?.getLocale?.()==='es'?'es':'en';
+    d.submission_id=submissionId ||= generateId();
+    status.className='status';
+    status.textContent='';
+    if(!d.bilingual||!d.consent){
+      status.className='status error';
+      status.textContent='Bilingual confirmation and contact consent are required.';
+      window.GFTLocale?.refresh?.();return;
+    }
+    if(d.website){
+      status.className='status error';
+      status.textContent='Please contact the recruiting team to apply.';
+      window.GFTLocale?.refresh?.();return;
+    }
+    submitting=true;
+    button.disabled=true;
+    button.textContent='Sending your application securely…';
+    window.GFTLocale?.refresh?.();
+    try{
+      let response;
+      try{
+        response=await postApplication(applicationEndpoint,d);
+      }catch(networkError){
+        // Same-origin proxy if the external endpoint is blocked by browser CORS/network rules.
+        response=await postApplication('/api/apply',d,12000);
+      }
+      if(!response.ok||!response.data?.ok||!response.data?.received||!response.data?.emailed){
+        status.className='status error';
+        status.textContent=response.data?.received
+          ? 'Your application was saved, but the recruiting email could not be sent. Please try again later.'
+          : 'We could not submit your application right now. Please try again later.';
+        return;
+      }
+      submitted=true;submissionId=null;
       form.reset();populateTerritories();
-    } catch(err) {
-      openEmailDraft(d);
-      status.className='status notice';
-      status.replaceChildren(document.createTextNode('An email draft should open. Please send it to complete your application. If no email app opens, '));
-      const a=document.createElement('a');a.href=`mailto:rcramer@iconx.io?cc=${encodeURIComponent('support@gftrewards.com')}&subject=${encodeURIComponent((window.GFTLocale?.getLocale()==='es'?'Solicitud de Embajador GFT — ':'GFT Store Ambassador Application — ')+d.state)}&body=${encodeURIComponent(applicationText(d))}`;
-      a.textContent='open the email draft here';a.style.textDecoration='underline';status.append(a,document.createTextNode('. No application has been recorded by the website.'));
-    } finally {button.disabled=false;button.textContent='Submit my application →';}
+      status.className='status ok';
+      status.textContent='Application received and sent for delivery to the recruiting team. Thank you!';
+    }catch(error){
+      status.className='status error';
+      status.textContent='We could not submit your application right now. Please try again later.';
+    }finally{
+      submitting=false;
+      button.textContent=submitted?'Application submitted ✓':'Submit my application →';
+      button.disabled=submitted;
+      window.GFTLocale?.refresh?.();
+    }
   });
 })();
