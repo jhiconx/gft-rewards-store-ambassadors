@@ -11,14 +11,16 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 3
     steps:
-      - name: Verify existing Iconx Resend service
+      - name: Verify Iconx email endpoint on production and preview hosts
         shell: bash
         run: |
           python3 - <<'PY'
-          import json, urllib.request
+          import json, urllib.request, urllib.error
           urls = {
             'Supabase': 'https://yxfqfrgjjbxagrioeqzz.supabase.co/functions/v1/gft-store-ambassador-apply?health=1',
-            'Iconx Vercel': 'https://iconx-io.vercel.app/api/gft-ambassador-mail?health=1'
+            'Iconx Vercel': 'https://iconx-io.vercel.app/api/gft-ambassador-mail?health=1',
+            'Iconx domain': 'https://iconx.io/api/gft-ambassador-mail?health=1',
+            'Iconx www': 'https://www.iconx.io/api/gft-ambassador-mail?health=1',
           }
           ready = []
           for label, url in urls.items():
@@ -26,11 +28,11 @@ jobs:
                   with urllib.request.urlopen(url, timeout=20) as response:
                       payload = json.load(response)
                   print(label, 'backend:', {k:payload.get(k) for k in ('ok','ready','databaseConfigured','resendKeyConfigured','senderEnvConfigured') if k in payload})
-                  if payload.get('ready') is True:
-                      ready.append(label)
+                  if payload.get('ready') is True: ready.append(label)
+              except urllib.error.HTTPError as error:
+                  print(label, 'HTTP status:', error.code)
               except Exception as error:
-                  print(label, 'health check unavailable:', type(error).__name__)
-          if not ready:
-              raise SystemExit('No working server-side Resend configuration was detected')
-          print('Configured email service:', ', '.join(ready))
+                  print(label, 'unreachable:', type(error).__name__)
+          if not ready: raise SystemExit('No ready Resend backend could be verified')
+          print('Ready:', ', '.join(ready))
           PY
