@@ -8,6 +8,8 @@ Standalone GFT Rewards field-recruiting page for **Florida and New York**, coord
 - **$25** per qualifying, approved store signup (not for a meeting alone).
 - **$1** per verified unique shopper redemption during each attributed store's *first eligible promotion*.
 - **$500** one-time territory completion bonus after every store on the pre-approved roster is enrolled and runs its first eligible promotion.
+- **$0.02 (2¢)** per verified, eligible reward redemption on an ongoing basis at the stores attributed to the ambassador while they participate under the written compensation agreement, including after the first promotion. The $1 first-promotion incentive remains separate.
+- The interface is fully bilingual **English/Español** with a persistent language switch in the header, including the application, map controls, FAQs, and compensation terms.
 - Ambassadors **must speak English and Spanish** and **must complete GFT platform training**.
 - 18 proposed Florida and 20 proposed New York city-centered territories, each approximately **20 × 20 statute miles (400 square miles)**. Overlapping squares are planning concepts, not exclusivity promises. Assigned store rosters are definitive.
 - Searchable city list, state toggle, click-to-select geographic tiles and application territory picker.
@@ -37,3 +39,6 @@ The city-center coordinates are representative planning points. The website is n
 The $25 / $1 / $500 incentives and language/training requirements were provided for product implementation and do not by themselves establish employment classification or compliance with wage-and-hour law. Have the written compensation plan reviewed before launching recruitment.
 
 **Existing Sampling For Good repository and site are not changed by this project.**
+## Bilingual website
+
+The language selector (EN / ES) changes visitor-facing content, including dynamic territory text, instructions and application feedback. Language choice is retained locally when the browser permits it. The English source remains the default. Ongoing 2¢ redemption commissions are conditional on verified eligible redemptions and the written active-store attribution agreement.
