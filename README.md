@@ -17,7 +17,7 @@ Standalone GFT Rewards field-recruiting page for **Florida and New York**, coord
 
 ## Application delivery — existing Iconx stack
 
-Applications are posted to the dedicated Supabase Edge Function `gft-store-ambassador-apply` in existing project `yxfqfrgjjbxagrioeqzz`. The handler writes to a separate private RLS table `public.gft_store_ambassador_applications` and uses the existing Supabase server-side `RESEND_API_KEY` and existing verified sender configuration (`AMBASSADOR_FROM_EMAIL` or `SAMPLE_FROM_EMAIL`, with fallback `no-reply@send.iconx.io`). It submits recruiting notifications to **rcramer@iconx.io** and **support@gftrewards.com**. No applicant email app is involved. The application form displays a confirmation only after Resend accepts the notification request; otherwise it shows an inline error and retains the submission ID for safe retries.
+Applications are posted to the dedicated Supabase Edge Function `gft-store-ambassador-apply` in existing project `yxfqfrgjjbxagrioeqzz` and saved to the separate private RLS table `public.gft_store_ambassador_applications`. The Supabase project does not currently have its own `RESEND_API_KEY`, so the function uses the **existing Iconx.io Vercel Resend email service** at `https://iconx.io/api/gft-ambassador-mail`. This relay has fixed recipients **rcramer@iconx.io** and **support@gftrewards.com**, validates applications, and never accepts arbitrary email recipients. The browser never opens a local email application. The GFT form displays success only after Resend accepts the notification. Its stored submission ID supports safe retries.
 
 The website uses the Edge Function directly; `api/apply.js` is a same-origin proxy fallback for connectivity issues. Application data is not public, and the Sampling For Good application function/table are unchanged.
 
@@ -27,7 +27,7 @@ The website uses the Edge Function directly; `api/apply.js` is a same-origin pro
 2. Upload *these files* to that new repository, preserving `api/apply.js`.
 3. In Vercel, select **Add New → Project → Import Git Repository**, select the new repository and use Framework Preset **Other**, Root Directory **./**, Build Command **none**, Output Directory **leave blank**.
 4. Deploy. Vercel will serve `/` from `index.html` and expose `/api/apply` as a serverless function.
-5. The dedicated GFT Supabase Edge Function uses Resend credentials already managed as secrets in the existing Iconx Supabase project. No new email keys are required in Vercel.
+5. The dedicated GFT Supabase Edge Function uses Resend credentials from the existing Iconx.io Vercel project. No secret is exposed to the GFT public site or GitHub code.
 6. Test a form submission and confirm receipt in the recruitment inbox before using the page publicly.
 
 **When Resend is unavailable or rejects a notification:** the application form displays an inline error; it never opens a local email program. If storage already succeeded, the saved submission can be retried without a duplicate application.
@@ -48,3 +48,9 @@ The $25 / $1 / $500 incentives and language/training requirements were provided 
 ## Bilingual website
 
 The language selector (EN / ES) changes visitor-facing content, including dynamic territory text, instructions and application feedback. Language choice is retained locally when the browser permits it. The English source remains the default. Ongoing 2¢ redemption commissions are conditional on verified eligible redemptions and the written active-store attribution agreement.
+
+## Delivery verification
+
+On November 17, 2026, an automated test application was saved in the private GFT applications table and the notification was accepted by the Iconx.io Resend email relay. The database reports `notification_status = sent`. These results verify email-provider acceptance, not final delivery to each inbox. The synthetic applicant is clearly labeled `GFT System Test Ignore` and is not a real applicant. GitHub Actions retains a health/CORS check that does not send recurring test emails.
+
+Supabase function source is versioned at `supabase/functions/gft-store-ambassador-apply/index.ts`. Deploying that function is a separate Supabase operation. Vercel continues auto-deploying the standalone GFT website from this GitHub repository.
