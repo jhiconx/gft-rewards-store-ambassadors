@@ -257,7 +257,7 @@
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initMap,{once:true});else initMap();
 
   // Browser posts directly to the existing Iconx Supabase + Resend stack.
-  // No mailto:, no dependence on the visitor's operating-system email app.
+  // The applicant's email application is never invoked.
   const applicationEndpoint='https://yxfqfrgjjbxagrioeqzz.supabase.co/functions/v1/gft-store-ambassador-apply';
   const form=$('ambassador-form'),status=$('form-status'),button=$('submit-application');
   let submitting=false,submitted=false,submissionId=null;
