@@ -67,4 +67,22 @@ clickLocale(d.querySelector('[data-language="en"]'));
 assert.equal(d.documentElement.lang,'en');
 assert.match(d.querySelector('label[for="instagram_handle"]').textContent,/Instagram handle/);
 
+
+// User-supplied official Iconx.io logo replaces the old SVG in both visible placements.
+const officialLogo='assets/iconx-official.webp';
+const asset=fs.readFileSync(officialLogo);
+assert.equal(asset.toString('ascii',0,4),'RIFF','Official logo binary must be a WebP');
+assert.equal(asset.toString('ascii',8,12),'WEBP','WebP asset must be valid RIFF header');
+assert.equal(asset.length,6770,'Exact optimized supplied-logo asset is committed');
+const brandHeader=d.querySelector('.agency-brand');
+const brandNote=d.querySelector('.agency-note-logo');
+assert(brandHeader&&brandNote,'Header and inline logo must both be clickable');
+assert.equal(brandHeader.getAttribute('href'),'./#top');
+assert.equal(brandNote.getAttribute('href'),'./#top');
+assert.equal(brandHeader.querySelector('img').getAttribute('src'),brandNote.querySelector('img').getAttribute('src'));
+assert.match(brandHeader.querySelector('img').getAttribute('src'),/iconx-official\\.webp/);
+assert(!site.includes('iconx-agency-logo.svg'),'No old V logo references remain on live page');
+assert(!site.includes('href="https://iconx.io"'),'Iconx branding should not navigate away from this site');
+assert(!site.includes('href="https://iconx-io.vercel.app'),'Iconx branding should not navigate away from this site');
+
 console.log('Ambassador one-page QA passed: 23 stores, 11 selectable groups, restricted state, no speculative city map, internship optional.');
