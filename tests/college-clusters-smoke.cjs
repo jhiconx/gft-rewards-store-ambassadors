@@ -80,7 +80,7 @@ assert(brandHeader&&brandNote,'Header and inline logo must both be clickable');
 assert.equal(brandHeader.getAttribute('href'),'./#top');
 assert.equal(brandNote.getAttribute('href'),'./#top');
 assert.equal(brandHeader.querySelector('img').getAttribute('src'),brandNote.querySelector('img').getAttribute('src'));
-assert.match(brandHeader.querySelector('img').getAttribute('src'),/iconx-official\\.webp/);
+assert.match(brandHeader.querySelector('img').getAttribute('src'),/iconx-official\.webp/);
 assert(!site.includes('iconx-agency-logo.svg'),'No old V logo references remain on live page');
 assert(!site.includes('href="https://iconx.io"'),'Iconx branding should not navigate away from this site');
 assert(!site.includes('href="https://iconx-io.vercel.app'),'Iconx branding should not navigate away from this site');
