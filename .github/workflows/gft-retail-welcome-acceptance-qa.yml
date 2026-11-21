@@ -18,12 +18,12 @@ jobs:
           import json, urllib.request, urllib.error
           url='https://yxfqfrgjjbxagrioeqzz.supabase.co/functions/v1/gft-store-ambassador-apply'
           payload={
-            'submission_id':'bd715b8b-2739-4e3c-836f-b7a1e8074526',
-            'full_name':'GFT Sender Name QA Ignore',
+            'submission_id':'d07f6932-3caf-4a68-b40e-30bbf32ab188',
+            'full_name':'GFT New Signup QA Ignore',
             'email':'delivered@resend.dev',
             'mobile':'2025550123',
             'state':'FL',
-            'territory':'FL-01',
+            'territory':'FL-02',
             'base_city':'Miami automated test',
             'retail_experience':'SYNTHETIC TEST ONLY - NOT A REAL APPLICANT',
             'bilingual':True,
