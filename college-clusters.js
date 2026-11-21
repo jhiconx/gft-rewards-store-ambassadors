@@ -8,13 +8,13 @@
   }
   const dict = {
     en: {
-      explorerNav:'Explore clusters',ambassadorNav:'Ambassador program',apply:'Apply to be an ambassador',
-      eyebrow:'01 / GFT college-to-store field program',hero1:'One campus.',hero2:'A neighborhood of stores.',
+      explorerNav:'Ambassador Program',ambassadorNav:'Program overview',apply:'Apply to be an ambassador',
+      eyebrow:'01 / GFT Ambassador Program · College-to-store',hero1:'One campus.',hero2:'A neighborhood of stores.',
       wavesEyebrow:'Proposed recruitment rollout',wavesTitle:'Recruit the first five multi-store leads. Then expand.',
       wavesSub:'Five multi-store groups cover 17 stores. Six standalone sites follow. 20 × 20 miles is a student planning limit, not a surveyed boundary.',
       wave1Tag:'WAVE 1',wave2Tag:'WAVE 2',wave1Title:'Multi-store recruiting',wave2Title:'Single-store coverage',waveStores:'stores',
       lede:'Recruit one bilingual college ambassador for each proposed 20 × 20-mile student square. The five-store South Florida corridor is a regional group, not a verified single student territory.',
-      explore:'Explore store clusters',workflow:'View the visit playbook',
+      explore:'View current territories',workflow:'View the visit playbook',
       targetDisclaimer:'Prospective distribution targets only — no store participation or campus partnership is represented as confirmed.',
       modelTitle:'LOCAL FIELD MODEL',v1:'Recruit a campus lead',v1small:'Identify a bilingual student close to target stores',
       v2:'Assign a store cluster',v2small:'One 20 × 20-mile student square; coordinate longer corridors',
@@ -44,16 +44,34 @@
       check2:'Secure store outreach approval from GFT',check3:'Recruit and train a local bilingual college ambassador',
       check4:'Approve a written roster, visit window and attribution rules',
       territoryPolicy:'Student territory: a proposed 20 × 20-mile square (400 sq. miles), NOT a 20-mile radius. South Florida is a recruiting corridor and may require two separate student squares. Boundaries and drive times are unverified.',
+      growthEyebrow:"An expanding Ambassador Program",
+      growthTitle:"These are the store clusters we have listed today.",
+      growthBody:"The 23 prospective stores and 11 recruiting groups shown here are our current starting footprint, not a permanent limit. As more approved grocery stores join GFT Rewards, new clusters and territories will be added. These locations are recruiting targets, not guaranteed open assignments.",
+      growthStudentLink:"College student? See the internship track",
+      internEyebrow:"College student internship track",
+      internHeading:"The same Ambassador Program. A hands-on internship opportunity.",
+      internIntro:"Students can apply to the existing Ambassador Program and request the internship track. Keep the same responsibilities and bilingual training while learning how brands, grocers, and loyalty programs operate in the real world.",
+      internBrandTitle:"Major brand campaigns",
+      internBrandCopy:"Get experience supporting approved major-brand promotions, campaign preparation, retail launch coordination, and reporting.",
+      internRetailTitle:"Retailer management",
+      internRetailCopy:"Work hands-on with grocery managers, store onboarding, staff training, retailer communications, and account follow-up.",
+      internShopperTitle:"Shopper loyalty",
+      internShopperCopy:"Learn how shoppers unlock offers, redeem at checkout, and engage with rewards across participating retailers.",
+      internAccountTitle:"Account-specific loyalty",
+      internAccountCopy:"Understand store-specific promotions, account-level loyalty offers, tracking, measurement, and retailer engagement.",
+      internVerifiedTitle:"Documented, verifiable internship experience",
+      internVerifiedCopy:"For eligible students, approved work can be documented through an agreed work plan, activity or hours records, and supervisor review. Academic credit or acceptance as a verified internship requires school approval and written program terms; neither is automatic.",
+      internApply:"Apply through the Ambassador Program →",
       footerHome:'Store Ambassador Program',footerAgency:'— A Registered GFT Rewards Agency'
     },
     es: {
-      explorerNav:'Explorar grupos',ambassadorNav:'Programa de embajadores',apply:'Solicitar ser embajador',
-      eyebrow:'01 / Programa GFT de universidades y tiendas',hero1:'Un campus.',hero2:'Una comunidad de tiendas.',
+      explorerNav:'Programa de embajadores',ambassadorNav:'Resumen del programa',apply:'Solicitar ser embajador',
+      eyebrow:'01 / Programa de embajadores GFT · Universidades y tiendas',hero1:'Un campus.',hero2:'Una comunidad de tiendas.',
       wavesEyebrow:'Lanzamiento propuesto',wavesTitle:'Recluta los primeros cinco grupos de varias tiendas. Después amplía.',
       wavesSub:'Cinco grupos de varias tiendas abarcan 17 tiendas; después siguen seis sitios aislados. El cuadrado de 20 × 20 millas es una propuesta sin límites medidos.',
       wave1Tag:'FASE 1',wave2Tag:'FASE 2',wave1Title:'Reclutamiento para varias tiendas',wave2Title:'Cobertura de una sola tienda',waveStores:'tiendas',
       lede:'Recluta a un embajador bilingüe por cada cuadrado estudiantil propuesto de 20 × 20 millas. El corredor de cinco tiendas del sur de Florida no es una sola zona verificada.',
-      explore:'Explorar grupos de tiendas',workflow:'Ver el plan de visitas',
+      explore:'Ver territorios actuales',workflow:'Ver el plan de visitas',
       targetDisclaimer:'Tiendas prospectivas solamente: no se ha confirmado la participación de tiendas ni acuerdos con universidades.',
       modelTitle:'MODELO DE CAMPO LOCAL',v1:'Reclutar en el campus',v1small:'Encontrar un estudiante bilingüe cerca de las tiendas',
       v2:'Asignar un grupo de tiendas',v2small:'Un cuadrado de 20 × 20 millas por estudiante',
@@ -83,6 +101,24 @@
       check2:'Obtener aprobación de GFT para contactar las tiendas',check3:'Reclutar y capacitar a un estudiante bilingüe local',
       check4:'Aprobar por escrito la lista, horario y reglas de atribución',
       territoryPolicy:'Territorio estudiantil: un cuadrado propuesto de 20 × 20 millas (400 mi²), NO un radio de 20 millas. El corredor del sur de Florida puede requerir dos cuadrados. Límites y tiempos sin verificar.',
+      growthEyebrow:"Programa de embajadores en expansión",
+      growthTitle:"Estos son los grupos de tiendas publicados actualmente.",
+      growthBody:"Las 23 tiendas prospectivas y los 11 grupos de reclutamiento constituyen la cobertura inicial, no un límite permanente. A medida que más supermercados aprobados se unan a GFT Rewards, se añadirán grupos y territorios. Son objetivos de reclutamiento, no asignaciones garantizadas.",
+      growthStudentLink:"¿Eres estudiante? Consulta la modalidad de prácticas",
+      internEyebrow:"Prácticas profesionales para estudiantes universitarios",
+      internHeading:"El mismo Programa de Embajadores. Una oportunidad de prácticas reales.",
+      internIntro:"Los estudiantes pueden solicitar la modalidad de prácticas dentro del Programa de Embajadores existente. Mantienen las funciones y capacitación bilingüe mientras conocen de primera mano a las marcas, los supermercados y los programas de lealtad.",
+      internBrandTitle:"Campañas de grandes marcas",
+      internBrandCopy:"Participa en promociones aprobadas de grandes marcas, preparación de campañas, coordinación de lanzamientos e informes.",
+      internRetailTitle:"Gestión de comercios",
+      internRetailCopy:"Trabaja directamente con gerentes de supermercados, incorporación de tiendas, capacitación, comunicación y seguimiento de cuentas.",
+      internShopperTitle:"Lealtad del comprador",
+      internShopperCopy:"Aprende cómo los compradores activan ofertas, canjean recompensas en caja y participan en las promociones de los comercios.",
+      internAccountTitle:"Lealtad específica por cuenta",
+      internAccountCopy:"Conoce promociones por tienda, ofertas de lealtad por cuenta, seguimiento, medición e interacción con los comercios.",
+      internVerifiedTitle:"Experiencia de prácticas documentada y verificable",
+      internVerifiedCopy:"Para estudiantes elegibles, el trabajo aprobado puede documentarse con un plan acordado, registros de actividades u horas y revisión del supervisor. El crédito académico o el reconocimiento como prácticas verificadas requieren aprobación de la institución y condiciones escritas; ninguno es automático.",
+      internApply:"Solicita ingreso al Programa de Embajadores →",
       footerHome:'Programa de Embajadores de Tiendas',footerAgency:'— Agencia registrada de GFT Rewards'
     }
   };
@@ -281,8 +317,8 @@
   }
   function refreshLocale(){
     document.documentElement.lang=lang;
-    document.title=text('College Ambassador Store Clusters | GFT Rewards × Iconx.io',
-      'Grupos de tiendas para embajadores universitarios | GFT Rewards × Iconx.io');
+    document.title=text('Ambassador Program — Current Store Territories | GFT Rewards × Iconx.io',
+      'Programa de embajadores — Territorios actuales | GFT Rewards × Iconx.io');
     for(const el of document.querySelectorAll('[data-i18n]')){
       const key=el.getAttribute('data-i18n');
       el.textContent=dict[lang][key]||dict.en[key]||el.textContent;
