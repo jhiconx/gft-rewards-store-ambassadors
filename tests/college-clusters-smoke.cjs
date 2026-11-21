@@ -54,8 +54,8 @@ assert.equal(d.getElementById('whatsapp_number').name,'whatsapp_number');
 const instagram=d.getElementById('instagram_handle'),whatsapp=d.getElementById('whatsapp_number');
 instagram.value='@gft_test.official';whatsapp.value='+1 (555) 555-1234';
 window.eval(read('i18n.js'));
-const click=el=>el.dispatchEvent(new window.MouseEvent('click',{bubbles:true}));
-click(d.querySelector('[data-language="es"]'));
+const clickLocale=el=>el.dispatchEvent(new window.MouseEvent('click',{bubbles:true}));
+clickLocale(d.querySelector('[data-language="es"]'));
 assert.equal(d.documentElement.lang,'es');
 assert.equal(d.querySelector('label[for="instagram_handle"]').textContent.trim(),'Usuario de Instagram (opcional)');
 assert.equal(d.querySelector('label[for="whatsapp_number"]').textContent.trim(),'Número de WhatsApp (opcional)');
@@ -63,7 +63,7 @@ assert.match(d.querySelector('.contact-help').textContent,/WhatsApp son datos de
 assert.equal(instagram.value,'@gft_test.official','Language switching must preserve Instagram entry');
 assert.equal(whatsapp.value,'+1 (555) 555-1234','Language switching must preserve WhatsApp entry');
 assert.equal(d.querySelectorAll('#territory option').length,12,'Language switching must preserve all current territories');
-click(d.querySelector('[data-language="en"]'));
+clickLocale(d.querySelector('[data-language="en"]'));
 assert.equal(d.documentElement.lang,'en');
 assert.match(d.querySelector('label[for="instagram_handle"]').textContent,/Instagram handle/);
 
