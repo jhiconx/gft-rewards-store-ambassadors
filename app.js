@@ -319,8 +319,12 @@
       }
       submitted=true;submissionId=null;
       form.reset();populateTerritories();
-      status.className='status ok';
-      status.textContent='Application received and sent for delivery to the recruiting team. Thank you!';
+      status.className=response.data.confirmationSent===false?'status notice':'status ok';
+      status.textContent=response.data.confirmationSent===true
+        ? 'Application received! A confirmation email was accepted for delivery from GFTAmbassadors@iconx.io.'
+        : response.data.confirmationSent===false
+          ? 'Application received, but your acknowledgment email could not be sent. Our recruiting team has your application.'
+          : 'Application received and sent for delivery to the recruiting team. Thank you!';
     }catch(error){
       status.className='status error';
       status.textContent='We could not submit your application right now. Please try again later.';
