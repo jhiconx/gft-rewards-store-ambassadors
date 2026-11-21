@@ -60,10 +60,11 @@ async function mark(rowId: string, status: "sent" | "failed", providerId?: strin
     signal: AbortSignal.timeout(8000),
   }).catch(() => {});
 }
-async function markConfirmation(rowId: string, confirmationAccepted: boolean, providerId?: string) {
+async function markConfirmation(rowId: string, confirmationAccepted: boolean, providerId?: string, failureReason?: string) {
   const update: Record<string, unknown> = {
     confirmation_status: confirmationAccepted ? "sent" : "failed",
     confirmation_attempts: 1,
+    confirmation_failure_reason: confirmationAccepted ? null : String(failureReason || "not_accepted").slice(0,200),
   };
   if (confirmationAccepted) {
     update.confirmation_provider_id = providerId || null;
@@ -135,8 +136,8 @@ Deno.serve(async (req: Request) => {
       return json({ok:false,verified:false},403,origin);
     }
     try {
-      const matches=await getRows("select=id&id=eq."+id+"&submission_id=eq."+sid+"&email=eq."+encodeURIComponent(email)+"&limit=1");
-      return json({ok:true,verified:matches.length===1},matches.length===1?200:403,origin);
+      const matches=await getRows("select=id,notification_status&id=eq."+id+"&submission_id=eq."+sid+"&email=eq."+encodeURIComponent(email)+"&limit=1");
+      return json({ok:true,verified:matches.length===1,recruitingSent:matches[0]?.notification_status==="sent"},matches.length===1?200:403,origin);
     } catch { return json({ok:false,verified:false},503,origin); }
   }
   if (req.method !== "POST") return json({ ok: false, error: "Method not allowed" }, 405, origin);
@@ -173,7 +174,33 @@ Deno.serve(async (req: Request) => {
         language: d.language, source: "gft-store-ambassadors",
       });
     }
-    if (row.notification_status === "sent") return json({ ok: true, received: true, emailed: true, confirmationSent: row.confirmation_status === "sent" }, 200, origin);
+    if (row.notification_status === "sent") {
+      if (row.confirmation_status === "sent")
+        return json({ ok: true, received: true, emailed: true, confirmationSent: true }, 200, origin);
+      // Retry the welcome only. The recruiting notification was already accepted,
+      // so never resend the internal recruiting email on this branch.
+      try {
+        const rr=await fetch("https://iconx.io/api/gft-ambassador-mail",{
+          method:"POST",headers:{"Content-Type":"application/json"},
+          body:JSON.stringify({
+            mode:"confirmation_only",id:String(row.id),
+            submission_id:String(row.submission_id || d.submission_id),
+            full_name:d.full_name,email:d.email,mobile:d.mobile,
+            state:d.state,territory:d.territory,base_city:d.base_city,
+            retail_experience:d.retail_experience,language:d.language
+          }),
+          signal:AbortSignal.timeout(11000),
+        });
+        const out=await rr.json().catch(()=>({}));
+        const confirmationSent=rr.ok&&out.confirmationAccepted===true;
+        await markConfirmation(String(row.id),confirmationSent,String(out.confirmationId||""),String(out.confirmationFailure||out.error||""));
+        return json({ok:true,received:true,emailed:true,confirmationSent},200,origin);
+      }catch(error){
+        console.error("GFT confirmation retry unavailable");
+        await markConfirmation(String(row.id),false,undefined,error instanceof Error?error.name:"transport");
+        return json({ok:true,received:true,emailed:true,confirmationSent:false},200,origin);
+      }
+    }
     const directMail = Boolean(RESEND && FROM);
     let emailResponse: Response;
     if (directMail) {
@@ -225,7 +252,7 @@ Deno.serve(async (req: Request) => {
     }
     await mark(String(row.id), "sent", directMail ? data.id : undefined);
     const confirmationAccepted = directMail ? false : data.confirmationAccepted === true;
-    try { await markConfirmation(String(row.id), confirmationAccepted, directMail ? undefined : String(data.confirmationId || "")); }
+    try { await markConfirmation(String(row.id), confirmationAccepted, directMail ? undefined : String(data.confirmationId || ""), directMail ? "supabase_confirmation_not_configured" : String(data.confirmationFailure || "")); }
     catch { console.error("GFT applicant confirmation tracking failed"); }
     return json({ ok: true, received: true, emailed: true, confirmationSent: confirmationAccepted }, 200, origin);
   } catch (err) {
