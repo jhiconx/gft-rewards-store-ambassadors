@@ -223,7 +223,7 @@
     $('cc-pitch').textContent=getPitch(c);
     $('cc-store-count').textContent=c.stores.length+' '+(c.stores.length===1?w().store:w().stores);
     const badges=$('cc-selected-badges');badges.replaceChildren();
-    badges.append(dom('span','',c.state),dom('span','',getWave(c)),dom('span','',c.stores.length+' '+(c.stores.length===1?w().store:w().stores,dom('span','',text('20 × 20 mi target','Meta 20 × 20 mi')));
+    badges.append(dom('span','',c.state),dom('span','',getWave(c)),dom('span','',c.stores.length+' '+(c.stores.length===1?w().store:w().stores)),dom('span','',text('20 × 20 mi target','Meta 20 × 20 mi')));
     if(c.boundaryReview)badges.append(dom('span','cc-boundary-alert',text('CORRIDOR · footprint unverified','CORREDOR · límites sin verificar')));
     $('cc-route-link').href=routeLink(c);
     const lead=colleges[c.lead];focusMap(lead.name,lead.address,'campus');
