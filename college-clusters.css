@@ -134,3 +134,22 @@
 
 .cc-college-links button.cc-show-campus{border:0;background:transparent;padding:0;color:#6543af;font-size:11px;font-weight:800;text-decoration:underline;text-underline-offset:2px;cursor:pointer}
 .cc-college-links button.cc-show-campus:hover{color:#442080}
+
+.cc-priorities{padding:61px 0 62px;background:#fff}
+.cc-waves-heading{margin-bottom:26px}
+.cc-waves-heading h2{font-size:clamp(29px,3vw,39px);margin-top:11px}
+.cc-wave-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:19px}
+.cc-wave-card{border:1px solid #e7daf3;border-radius:24px;padding:27px;background:#fbf8ff}
+.cc-wave-primary{background:linear-gradient(160deg,#f5eeff,#fff)}
+.cc-wave-head{display:flex;justify-content:space-between;align-items:start;gap:12px;margin-bottom:19px}
+.cc-phase-tag{display:inline-block;color:#7751a3;font:800 11px Manrope,sans-serif;letter-spacing:1.5px}
+.cc-wave-head h3{margin:5px 0 0;font-size:19px}
+.cc-wave-total{color:#8652dc;font:800 34px Manrope,sans-serif;white-space:nowrap}
+.cc-wave-total small{font-size:11px;color:#7d6d8d;display:block;text-align:center}
+.cc-wave-items{display:grid;gap:8px}
+.cc-wave-item{background:#fff;border:1px solid #e8def3;border-radius:13px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;gap:10px;cursor:pointer;text-align:left;color:#342744}
+.cc-wave-item:hover{border-color:#b99ced;background:#fdfaff}
+.cc-wave-item-name{display:block;font:800 13px Manrope,sans-serif;line-height:1.35}
+.cc-wave-item-name small{display:block;color:#80718a;font:600 11px/1.5 'DM Sans',sans-serif;margin-top:4px}
+.cc-wave-item b{font:800 16px Manrope,sans-serif;color:#8754cd}
+@media(max-width:650px){.cc-priorities{padding:45px 0}.cc-wave-grid{grid-template-columns:1fr}.cc-wave-card{padding:20px}}
