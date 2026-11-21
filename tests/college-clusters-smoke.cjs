@@ -36,8 +36,8 @@ const site=read('index.html'),translations=read('i18n.js'),legacyCopy=read('coll
 const comp=d.querySelector('#compensation');
 assert.equal(comp.querySelectorAll('.comp-card').length,3);
 assert.deepEqual([...comp.querySelectorAll('.comp-value')].map(x=>x.textContent),['$25','1¢','$500']);
-assert.match(comp.textContent,/\\$0\\.01 for each verified, eligible reward redemption/);
-assert.match(comp.textContent,/\\$500 bonus/);
+assert.match(comp.textContent,/\$0\.01 for each verified, eligible reward redemption/);
+assert.match(comp.textContent,/\$500 bonus/);
 assert(!site.includes('$1 per unique first-promotion redemption'));
 assert(!site.includes('2¢'));
 assert(!site.includes('$0.02'));
