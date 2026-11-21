@@ -30,4 +30,19 @@ click(d.querySelector('[data-territory-state="NY"]'));
 assert.equal(d.querySelectorAll('.current-territory-card').length,1);
 assert.match(d.querySelector('.current-territory-card h3').textContent,/Brooklyn|Canarsie/);
 assert.match(read('i18n.js'),/Todos los territorios actuales/);
+
+// Active compensation must be $25 per approved signup, 1¢ ongoing, and unchanged $500 bonus.
+const site=read('index.html'),translations=read('i18n.js'),legacyCopy=read('college-clusters.js');
+const comp=d.querySelector('#compensation');
+assert.equal(comp.querySelectorAll('.comp-card').length,3);
+assert.deepEqual([...comp.querySelectorAll('.comp-value')].map(x=>x.textContent),['$25','1¢','$500']);
+assert.match(comp.textContent,/\\$0\\.01 for each verified, eligible reward redemption/);
+assert.match(comp.textContent,/\\$500 bonus/);
+assert(!site.includes('$1 per unique first-promotion redemption'));
+assert(!site.includes('2¢'));
+assert(!site.includes('$0.02'));
+assert(!site.includes('$1 per verified'));
+assert(!translations.includes('2¢'));
+assert(!translations.includes('$0.02'));
+assert(!legacyCopy.includes('$1 per verified unique first-promotion'));
 console.log('Ambassador one-page QA passed: 23 stores, 11 selectable groups, restricted state, no speculative city map, internship optional.');
