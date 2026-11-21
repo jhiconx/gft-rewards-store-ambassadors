@@ -1,6 +1,6 @@
-/* Prospective store targets supplied by GFT Rewards. College addresses sourced from college websites; clusters are planning recommendations. */
+/* GFT target list and institutional campus sources. 20×20-mile student squares are PROPOSED, not surveyed polygons. */
 window.GFT_COLLEGE_PLAN={
-  "version": "2026-11-21",
+  "version": "2026-11-21-20x20",
   "stores": [
     {
       "id": "S01",
@@ -47,12 +47,12 @@ window.GFT_COLLEGE_PLAN={
       "street": "1200 Simpson Rd",
       "city": "Kissimmee",
       "state": "FL",
-      "zip": "24744",
+      "zip": "34744",
       "sourceRegion": "SE Orlando",
       "sourceMarket": "ORLANDO",
       "cluster": "kissimmee",
-      "note": "ZIP supplied as 24744; verify before travel.",
-      "address": "1200 Simpson Rd, Kissimmee, FL, USA"
+      "note": "ZIP corrected to 34744 per latest supplied list; confirm store address.",
+      "address": "1200 Simpson Rd, Kissimmee, FL 34744, USA"
     },
     {
       "id": "S05",
@@ -200,15 +200,15 @@ window.GFT_COLLEGE_PLAN={
     {
       "id": "S16",
       "name": "Ocho Rios III (ref to three new stores)",
-      "street": "4099 NW 31st",
+      "street": "4099 NW 31st Ave",
       "city": "Lauderdale Lakes",
       "state": "FL",
       "zip": "33309",
       "sourceRegion": "N Miami",
       "sourceMarket": "MIAMI",
       "cluster": "broward",
-      "note": "Street suffix missing in supplied address; verify before travel.",
-      "address": "4099 NW 31st, Lauderdale Lakes, FL, USA"
+      "note": "Street suffix updated per latest supplied list; confirm store address.",
+      "address": "4099 NW 31st Ave, Lauderdale Lakes, FL 33309, USA"
     },
     {
       "id": "S17",
@@ -281,12 +281,12 @@ window.GFT_COLLEGE_PLAN={
       "street": "130 Bowdoin St",
       "city": "Dorchester",
       "state": "MA",
-      "zip": "2122",
+      "zip": "02122",
       "sourceRegion": "Boston",
       "sourceMarket": "BOSTON",
       "cluster": "boston",
-      "note": "ZIP supplied as 2122; verify the leading-zero format before travel.",
-      "address": "130 Bowdoin St, Dorchester, MA, USA"
+      "note": "ZIP normalized per latest supplied list; confirm store address.",
+      "address": "130 Bowdoin St, Dorchester, MA 02122, USA"
     },
     {
       "id": "S23",
@@ -498,6 +498,97 @@ window.GFT_COLLEGE_PLAN={
       "address": "2001 Oriental Blvd, Brooklyn, NY 11235, USA",
       "url": "https://www.kbcc.cuny.edu/contactus.html",
       "type": "community college"
+    },
+    {
+      "id": "C29",
+      "name": "The University of Tampa",
+      "address": "401 W Kennedy Blvd, Tampa, FL 33606, USA",
+      "url": "https://www.ut.edu/about-utampa/hotels-and-directions",
+      "type": "private university"
+    },
+    {
+      "id": "C30",
+      "name": "Manatee Technical College — Main Campus",
+      "address": "6305 State Road 70 East, Bradenton, FL 34203, USA",
+      "url": "https://www.manateetech.edu/contact-us/",
+      "type": "technical college"
+    },
+    {
+      "id": "C31",
+      "name": "Bethune-Cookman University",
+      "address": "640 Dr Mary McLeod Bethune Blvd, Daytona Beach, FL 32114, USA",
+      "url": "https://www.cookman.edu/visit/directions.html",
+      "type": "private university"
+    },
+    {
+      "id": "C32",
+      "name": "Broward College — South Campus",
+      "address": "7200 Pines Blvd, Pembroke Pines, FL 33024, USA",
+      "url": "https://www.broward.edu/about/locations/",
+      "type": "state college"
+    },
+    {
+      "id": "C33",
+      "name": "Barry University — Miami Shores",
+      "address": "11300 NE 2nd Ave, Miami Shores, FL 33161, USA",
+      "url": "https://www.barry.edu/en/contact-us",
+      "type": "private university"
+    },
+    {
+      "id": "C34",
+      "name": "St. Thomas University — Miami Gardens",
+      "address": "16401 NW 37th Ave, Miami Gardens, FL 33054, USA",
+      "url": "https://www.stu.edu/about-stu/map-directions/",
+      "type": "private university"
+    },
+    {
+      "id": "C35",
+      "name": "Florida Memorial University — Miami Gardens",
+      "address": "15800 NW 42nd Ave, Miami Gardens, FL 33054, USA",
+      "url": "https://www.fmuniv.edu/admissions/contact-us/",
+      "type": "private university"
+    },
+    {
+      "id": "C36",
+      "name": "Miami Dade College — West Campus",
+      "address": "3800 NW 115th Ave, Doral, FL 33178, USA",
+      "url": "https://www.mdc.edu/west/",
+      "type": "state college"
+    },
+    {
+      "id": "C37",
+      "name": "Curry College — Milton Campus",
+      "address": "1071 Blue Hill Ave, Milton, MA 02186, USA",
+      "url": "https://www.curry.edu/about-us/our-campus/campus-map",
+      "type": "private college"
+    },
+    {
+      "id": "C38",
+      "name": "SUNY Downstate Health Sciences University",
+      "address": "450 Clarkson Ave, Brooklyn, NY 11203, USA",
+      "url": "https://www.downstate.edu/about/contact-us/",
+      "type": "public university"
+    },
+    {
+      "id": "C39",
+      "name": "Florida Institute of Technology — Melbourne",
+      "address": "150 W University Blvd, Melbourne, FL 32901, USA",
+      "url": "https://www.fit.edu/about/directions-and-parking/",
+      "type": "private university"
+    },
+    {
+      "id": "C40",
+      "name": "Florida Polytechnic University — Lakeland",
+      "address": "4700 Research Way, Lakeland, FL 33805, USA",
+      "url": "https://floridapoly.edu/about/contact/",
+      "type": "public university"
+    },
+    {
+      "id": "C41",
+      "name": "Broward College — North Campus",
+      "address": "1000 Coconut Creek Blvd, Coconut Creek, FL 33066, USA",
+      "url": "https://www.broward.edu/about/locations/",
+      "type": "state college"
     }
   ],
   "clusters": [
@@ -527,7 +618,9 @@ window.GFT_COLLEGE_PLAN={
       "state": "FL",
       "label": "Space Coast / Merritt Island",
       "lead": "C03",
-      "alternates": [],
+      "alternates": [
+        "C39"
+      ],
       "stores": [
         "S02"
       ],
@@ -563,7 +656,7 @@ window.GFT_COLLEGE_PLAN={
     {
       "id": "kissimmee",
       "state": "FL",
-      "label": "Kissimmee / Osceola",
+      "label": "Kissimmee Core",
       "lead": "C05",
       "alternates": [
         "C06"
@@ -582,15 +675,16 @@ window.GFT_COLLEGE_PLAN={
         "Day B: Kissimmee Meats & Produce → Unidos Pleasant Hill; coordinate with Valencia Poinciana.",
         "Collect store contacts, POS information, and approval outcomes after each visit."
       ],
-      "note": "Two separate visit days are more practical than treating all four stores as one short stop. Check the supplied ZIP for Unidos 2."
+      "note": "Four Kissimmee stores are a prospective 20 × 20-mile student cell. Confirm addresses and footprint before assigning a single student."
     },
     {
       "id": "polk",
       "state": "FL",
-      "label": "Winter Haven / Polk",
+      "label": "Winter Haven",
       "lead": "C07",
       "alternates": [
-        "C08"
+        "C08",
+        "C40"
       ],
       "stores": [
         "S08",
@@ -604,17 +698,18 @@ window.GFT_COLLEGE_PLAN={
         "Schedule Santiago Market and La Plaza Mexico in one local visit loop.",
         "Record follow-ups and schedule any POS-readiness review."
       ],
-      "note": "Polk State Lakeland can supplement recruiting, but Winter Haven students are the preferred first choice."
+      "note": "Winter Haven remains a separate two-store 20 × 20-mile planning cell; validate the travel route."
     },
     {
       "id": "tampa",
       "state": "FL",
-      "label": "Tampa / Brandon",
+      "label": "Greater Tampa & Valrico",
       "lead": "C09",
       "alternates": [
         "C10",
         "C11",
-        "C12"
+        "C12",
+        "C29"
       ],
       "stores": [
         "S10",
@@ -630,15 +725,16 @@ window.GFT_COLLEGE_PLAN={
         "Brandon/Valrico day: Latinos Supermarket, with HC Brandon recruits.",
         "A lead coordinator reviews all four store reports; don't assume same-day coverage."
       ],
-      "note": "Two subloops reduce cross-town travel. USF Tampa is a larger alternative recruiting pool, not necessarily the closest to each store."
+      "note": "Four-store Greater Tampa and Valrico recruiting group. Split into central Tampa and Valrico visit blocks; exact 20 × 20-mile fit is not verified."
     },
     {
       "id": "bradenton",
       "state": "FL",
-      "label": "Bradenton / Manatee",
+      "label": "Bradenton Pair",
       "lead": "C13",
       "alternates": [
-        "C14"
+        "C14",
+        "C30"
       ],
       "stores": [
         "S14",
@@ -652,55 +748,45 @@ window.GFT_COLLEGE_PLAN={
         "Visit Samoset Fresh Market and Manasota Fresh Market in one planned block.",
         "Document whether shared retail relationships require coordinated approvals."
       ],
-      "note": "New College of Florida is the secondary recruiting source; former USF Sarasota-Manatee facilities transitioned in 2026."
+      "note": "Two-store Bradenton group is separate from Tampa. Confirm travel route and exact 20 × 20-mile field boundary."
     },
     {
       "id": "broward",
       "state": "FL",
-      "label": "Broward / Lauderdale Lakes & Dania",
+      "label": "South Florida — Broward / Miami-Dade Corridor",
       "lead": "C15",
       "alternates": [
         "C16",
         "C17",
-        "C18"
+        "C18",
+        "C19",
+        "C20",
+        "C21",
+        "C32",
+        "C33",
+        "C34",
+        "C35",
+        "C36",
+        "C41"
       ],
       "stores": [
         "S16",
         "S17",
-        "S20"
-      ],
-      "priority": 1,
-      "market": "Lauderdale Lakes / Dania Beach",
-      "pitch": "Recruit near Broward College's Davie campus, with FAU and downtown/NSU backups.",
-      "plan": [
-        "North loop: validate Ocho Rios III address → Caribbean Best Market 1 in Lauderdale Lakes.",
-        "South loop: Ideal Foods Dania; recruit a student with travel access to Dania Beach.",
-        "Use one coordinator for reporting but schedule northern and southern loops separately."
-      ],
-      "note": "Ocho Rios III street suffix is missing in source data; confirm exact location before routing."
-    },
-    {
-      "id": "northmiami",
-      "state": "FL",
-      "label": "North Miami / Hialeah",
-      "lead": "C19",
-      "alternates": [
-        "C20",
-        "C21"
-      ],
-      "stores": [
+        "S20",
         "S18",
         "S19"
       ],
       "priority": 1,
-      "market": "North Miami / Hialeah",
-      "pitch": "Use MDC Hialeah for Jomara and FIU Biscayne Bay / MDC North as northern feeders.",
+      "market": "Lauderdale Lakes / Dania Beach / North Miami / Hialeah",
+      "pitch": "Five prospective stores in one regional recruiting corridor, but not a verified single 20 × 20-mile student cell. Recruit across Broward and Miami-Dade with local visit blocks.",
       "plan": [
-        "Hialeah run: Jomara Wholesale after recruiting at MDC Hialeah.",
-        "North Miami run: Caribbean Best Market 2 via FIU Biscayne Bay or MDC North.",
-        "One cluster lead consolidates both visit reports; don't force a single-day trip."
+        "Broward block: Ocho Rios III → Caribbean Best Market 1 (Lauderdale Lakes) → Ideal Foods Dania.",
+        "Miami-Dade block: Caribbean Best Market 2 (North Miami) → Jomara Wholesale (Hialeah).",
+        "Check store coordinates and actual 20 × 20-mile coverage before assigning one student. Recruit two local sub-area leads if required.",
+        "Regional lead consolidates owner contacts, POS readiness and follow-up."
       ],
-      "note": "Separate Hialeah and North Miami field days to reduce unnecessary driving."
+      "note": "BOUNDARY REVIEW: These five stores form one South Florida recruiting corridor, NOT a verified 20 × 20-mile geographic square. Two local student cells may be needed; verify addresses and driving routes before dispatch.",
+      "boundaryReview": true
     },
     {
       "id": "daytona",
@@ -708,7 +794,8 @@ window.GFT_COLLEGE_PLAN={
       "label": "Daytona Beach",
       "lead": "C22",
       "alternates": [
-        "C23"
+        "C23",
+        "C31"
       ],
       "stores": [
         "S21"
@@ -729,7 +816,8 @@ window.GFT_COLLEGE_PLAN={
       "label": "Dorchester / Boston",
       "lead": "C24",
       "alternates": [
-        "C25"
+        "C25",
+        "C37"
       ],
       "stores": [
         "S22"
@@ -751,7 +839,8 @@ window.GFT_COLLEGE_PLAN={
       "lead": "C26",
       "alternates": [
         "C27",
-        "C28"
+        "C28",
+        "C38"
       ],
       "stores": [
         "S23"
@@ -766,5 +855,12 @@ window.GFT_COLLEGE_PLAN={
       ],
       "note": "Prefer an ambassador with practical access to Canarsie; no campus affiliation is assumed."
     }
-  ]
+  ],
+  "territoryModel": {
+    "widthMiles": 20,
+    "heightMiles": 20,
+    "shape": "square",
+    "isVerified": false,
+    "description": "A student covers a proposed 20 by 20 mile square, NOT a 20-mile radius. Exact store coordinates, square boundaries and drive times remain unverified."
+  }
 };

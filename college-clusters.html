@@ -10,9 +10,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./styles.css?v=college20261121">
-  <link rel="stylesheet" href="./college-clusters.css?v=college20261121">
-  <script defer src="./college-clusters-data.js?v=college20261121"></script>
-  <script defer src="./college-clusters.js?v=college20261121"></script>
+  <link rel="stylesheet" href="./college-clusters.css?v=college20261121-20x20">
+  <script defer src="./college-clusters-data.js?v=college20261121-20x20"></script>
+  <script defer src="./college-clusters.js?v=college20261121-20x20"></script>
 </head>
 <body class="cc-body">
 <header class="cc-header">
@@ -58,8 +58,8 @@
     <div class="wrap">
       <div class="cc-stats" aria-label="Planning model totals">
         <div><strong id="cc-store-total">23</strong><span data-i18n="statStores">Prospective stores</span></div>
-        <div><strong id="cc-cluster-total">12</strong><span data-i18n="statClusters">Field clusters</span></div>
-        <div><strong id="cc-campus-total">28</strong><span data-i18n="statCampuses">Campus candidates</span></div>
+        <div><strong id="cc-cluster-total">11</strong><span data-i18n="statClusters">Recruiting groups</span></div>
+        <div><strong id="cc-campus-total">41</strong><span data-i18n="statCampuses">Campus candidates</span></div>
         <div><strong>3</strong><span data-i18n="statStates">States in this list</span></div>
       </div>
     </div>
@@ -68,7 +68,7 @@
     <div class="wrap">
       <div class="cc-center cc-waves-heading">
         <span class="eyebrow" data-i18n="wavesEyebrow">Proposed recruitment rollout</span>
-        <h2 data-i18n="wavesTitle">Recruit the first six college leads. Then expand.</h2>
+        <h2 data-i18n="wavesTitle">Recruit the first five multi-store leads. Then expand.</h2>
         <p data-i18n="wavesSub">Phase 1 covers the multi-store markets first; Phase 2 adds the six single-store or specialty territories. These are recommended assignments, not commitments.</p>
       </div>
       <div class="cc-wave-grid">
@@ -80,6 +80,7 @@
   <section class="cc-section cc-explorer-section" id="explorer">
     <div class="wrap">
       <div class="cc-section-top"><div><span class="eyebrow" data-i18n="explorerEyebrow">02 / Visit territories</span><h2 data-i18n="explorerHeading">Find the college. See the stores. Plan the visit.</h2><p class="muted" data-i18n="explorerSub">Start with the recommended lead campus. Alternate campuses expand recruiting reach; they do not indicate signed partnerships.</p></div><div class="cc-mini-note" data-i18n="planNotice">Rankings and visit loops are planning recommendations, not measured driving times.</div></div>
+      <p class="cc-territory-policy" data-i18n="territoryPolicy">Student territory: a proposed 20 × 20-mile square, NOT a 20-mile radius. Boundaries must be verified; the South Florida corridor may require more than one student cell.</p>
       <div class="cc-controls">
         <div id="cc-state-filters" class="cc-filter-tabs" role="group" aria-label="Filter clusters by state">
           <button type="button" class="cc-filter active" data-state="ALL" aria-pressed="true" data-i18n="allMarkets">All markets</button>
@@ -92,7 +93,7 @@
       </div>
       <div class="cc-explorer-grid">
         <aside class="cc-list-pane" aria-label="College ambassador clusters">
-          <div class="cc-pane-heading"><strong data-i18n="clusterMenu">College-led clusters</strong><span id="cc-visible-count">12</span></div>
+          <div class="cc-pane-heading"><strong data-i18n="clusterMenu">College-led clusters</strong><span id="cc-visible-count">11</span></div>
           <div class="cc-cluster-list" id="cc-cluster-list" role="listbox" aria-label="Choose a store cluster"><p class="muted" data-i18n="loading">Loading clusters…</p></div>
         </aside>
         <section class="cc-detail-pane" id="cc-cluster-detail" aria-live="polite">

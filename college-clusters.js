@@ -2,7 +2,7 @@
   'use strict';
   const data = window.GFT_COLLEGE_PLAN;
   const $ = id => document.getElementById(id);
-  if (!data || data.stores.length !== 23 || data.clusters.length !== 12) {
+  if (!data || data.stores.length !== 23 || data.clusters.length !== 11) {
     $('cc-cluster-list').textContent = 'Cluster data is unavailable. Please refresh.';
     return;
   }
@@ -10,20 +10,20 @@
     en: {
       explorerNav:'Explore clusters',ambassadorNav:'Ambassador program',apply:'Apply to be an ambassador',
       eyebrow:'01 / GFT college-to-store field program',hero1:'One campus.',hero2:'A neighborhood of stores.',
-      wavesEyebrow:'Proposed recruitment rollout',wavesTitle:'Recruit the first six college leads. Then expand.',
-      wavesSub:'Phase 1 covers the multi-store markets first; Phase 2 adds the six single-store or specialty territories. These are recommended assignments, not commitments.',
+      wavesEyebrow:'Proposed recruitment rollout',wavesTitle:'Recruit the first five multi-store leads. Then expand.',
+      wavesSub:'Five multi-store groups cover 17 stores. Six standalone sites follow. 20 × 20 miles is a student planning limit, not a surveyed boundary.',
       wave1Tag:'WAVE 1',wave2Tag:'WAVE 2',wave1Title:'Multi-store recruiting',wave2Title:'Single-store coverage',waveStores:'stores',
-      lede:'Build a locally recruited, bilingual college ambassador team around stores GFT Rewards is attempting to onboard. Each cluster connects an actual college campus to a practical list of prospective grocery-store visits.',
+      lede:'Recruit one bilingual college ambassador for each proposed 20 × 20-mile student square. The five-store South Florida corridor is a regional group, not a verified single student territory.',
       explore:'Explore store clusters',workflow:'View the visit playbook',
       targetDisclaimer:'Prospective distribution targets only — no store participation or campus partnership is represented as confirmed.',
       modelTitle:'LOCAL FIELD MODEL',v1:'Recruit a campus lead',v1small:'Identify a bilingual student close to target stores',
-      v2:'Assign a store cluster',v2small:'Keep visits within a manageable local route',
+      v2:'Assign a store cluster',v2small:'One 20 × 20-mile student square; coordinate longer corridors',
       v3:'Visit, verify, report',v3small:'Confirm decision makers and POS readiness',
-      suggestedNotAssigned:'Suggested assignments — none have been staffed or approved.',
-      statStores:'Prospective stores',statClusters:'Field clusters',statCampuses:'Campus candidates',statStates:'States in this list',
+      suggestedNotAssigned:'20 × 20-mile student planning squares; none are mapped, staffed or approved yet.',
+      statStores:'Prospective stores',statClusters:'Recruiting groups',statCampuses:'Campus candidates',statStates:'States in this list',
       explorerEyebrow:'02 / Visit territories',explorerHeading:'Find the college. See the stores. Plan the visit.',
       explorerSub:'Start with the recommended lead campus. Alternate campuses expand recruiting reach; they do not indicate signed partnerships.',
-      planNotice:'Rankings and visit loops are planning recommendations, not measured driving times.',
+      planNotice:'Each student is assigned a proposed 20 × 20-mile square (not a radius). Store locations and boundaries need validation; South Florida may need two local student cells.',
       allMarkets:'All markets',allWaves:'All launch waves',waveOne:'Wave 1 · Multi-store',waveTwo:'Wave 2 · Single/specialty',
       clusterMenu:'College-led clusters',loading:'Loading clusters…',clusterDetail:'Selected field cluster',routeAll:'Open planning visit route',
       locationMap:'Location map',mapCaption:'Map centers on one selected campus or store. Use the route link for suggested stops.',openMap:'Open larger map',
@@ -39,29 +39,30 @@
       viewComp:'Review full terms',methodEyebrow:'04 / Sources & decisions',
       methodTitle:'Built from your store list, with campus sources checked.',
       methodText:'Store addresses and market labels are reproduced from your prospect list. Candidate college addresses link to institutional pages. “Lead” and “alternate” rankings reflect geographic and field-operational judgment, not university endorsement, student enrollment data, measured route duration, or a confirmed ambassador relationship.',
-      methodNote:'In particular, the supplied ZIP for Unidos 2 in Kissimmee, the street suffix at Ocho Rios III, and the Boston ZIP need confirmation before dispatch. Map searches may omit those questionable ZIPs.',
+      methodNote:'The revised target list supplied 34744 for Unidos 2, NW 31st Ave for Ocho Rios III and 02122 for Bowdoin. Verify each full store address and square boundary before dispatch.',
       nextSteps:'Before assigning a cluster',check1:'Confirm each target store’s exact address and decision maker',
       check2:'Secure store outreach approval from GFT',check3:'Recruit and train a local bilingual college ambassador',
       check4:'Approve a written roster, visit window and attribution rules',
+      territoryPolicy:'Student territory: a proposed 20 × 20-mile square (400 sq. miles), NOT a 20-mile radius. South Florida is a recruiting corridor and may require two separate student squares. Boundaries and drive times are unverified.',
       footerHome:'Store Ambassador Program',footerAgency:'— A Registered GFT Rewards Agency'
     },
     es: {
       explorerNav:'Explorar grupos',ambassadorNav:'Programa de embajadores',apply:'Solicitar ser embajador',
       eyebrow:'01 / Programa GFT de universidades y tiendas',hero1:'Un campus.',hero2:'Una comunidad de tiendas.',
-      wavesEyebrow:'Lanzamiento propuesto',wavesTitle:'Recluta los primeros seis embajadores universitarios. Después amplía.',
-      wavesSub:'La fase 1 cubre primero los mercados con varias tiendas; la fase 2 agrega seis zonas de una sola tienda o especializadas. Son asignaciones sugeridas, no compromisos.',
+      wavesEyebrow:'Lanzamiento propuesto',wavesTitle:'Recluta los primeros cinco grupos de varias tiendas. Después amplía.',
+      wavesSub:'Cinco grupos de varias tiendas abarcan 17 tiendas; después siguen seis sitios aislados. El cuadrado de 20 × 20 millas es una propuesta sin límites medidos.',
       wave1Tag:'FASE 1',wave2Tag:'FASE 2',wave1Title:'Reclutamiento para varias tiendas',wave2Title:'Cobertura de una sola tienda',waveStores:'tiendas',
-      lede:'Forma un equipo local de embajadores universitarios bilingües cerca de las tiendas que GFT Rewards busca incorporar. Cada grupo vincula un campus real con una lista práctica de visitas a supermercados prospectivos.',
+      lede:'Recluta a un embajador bilingüe por cada cuadrado estudiantil propuesto de 20 × 20 millas. El corredor de cinco tiendas del sur de Florida no es una sola zona verificada.',
       explore:'Explorar grupos de tiendas',workflow:'Ver el plan de visitas',
       targetDisclaimer:'Tiendas prospectivas solamente: no se ha confirmado la participación de tiendas ni acuerdos con universidades.',
       modelTitle:'MODELO DE CAMPO LOCAL',v1:'Reclutar en el campus',v1small:'Encontrar un estudiante bilingüe cerca de las tiendas',
-      v2:'Asignar un grupo de tiendas',v2small:'Organizar visitas dentro de una ruta local manejable',
+      v2:'Asignar un grupo de tiendas',v2small:'Un cuadrado de 20 × 20 millas por estudiante',
       v3:'Visitar, verificar, informar',v3small:'Confirmar responsables y preparación del punto de venta',
-      suggestedNotAssigned:'Asignaciones sugeridas: aún no hay personal ni aprobaciones confirmadas.',
-      statStores:'Tiendas prospectivas',statClusters:'Grupos de trabajo',statCampuses:'Campus candidatos',statStates:'Estados incluidos',
+      suggestedNotAssigned:'Cuadrados propuestos de 20 × 20 millas; aún sin límites, personal ni aprobaciones confirmadas.',
+      statStores:'Tiendas prospectivas',statClusters:'Grupos de reclutamiento',statCampuses:'Campus candidatos',statStates:'Estados incluidos',
       explorerEyebrow:'02 / Territorios de visitas',explorerHeading:'Encuentra el campus. Identifica las tiendas. Planifica la visita.',
       explorerSub:'Comienza con el campus principal recomendado. Los campus alternativos amplían el reclutamiento; no representan convenios firmados.',
-      planNotice:'Las prioridades y rutas son recomendaciones de planificación, no tiempos de manejo medidos.',
+      planNotice:'Cada estudiante recibe un cuadrado propuesto de 20 × 20 millas (no es un radio). Los límites deben verificarse; el sur de Florida puede requerir dos zonas locales.',
       allMarkets:'Todos los mercados',allWaves:'Todas las fases',waveOne:'Fase 1 · Varias tiendas',waveTwo:'Fase 2 · Zona pequeña',
       clusterMenu:'Grupos dirigidos desde campus',loading:'Cargando grupos…',clusterDetail:'Grupo seleccionado',routeAll:'Abrir ruta de visitas sugerida',
       locationMap:'Mapa de ubicación',mapCaption:'El mapa se centra en un campus o tienda seleccionada. Usa el enlace de ruta para las paradas sugeridas.',openMap:'Abrir mapa grande',
@@ -77,10 +78,11 @@
       viewComp:'Consultar condiciones',methodEyebrow:'04 / Fuentes y decisiones',
       methodTitle:'A partir de tu lista de tiendas y campus verificados.',
       methodText:'Los nombres, direcciones y mercados de las tiendas vienen de tu lista. Las direcciones de universidades enlazan a páginas institucionales. Las categorías “principal” y “alternativo” son criterios geográficos y operativos; no indican respaldo universitario, matrícula, duración medida de rutas ni relaciones confirmadas.',
-      methodNote:'En particular, deben confirmarse el código postal de Unidos 2 en Kissimmee, el sufijo de la calle de Ocho Rios III y el código postal de Boston. Los mapas pueden omitir estos códigos cuestionables.',
+      methodNote:'La lista actualizada indica 34744 para Unidos 2, NW 31st Ave para Ocho Rios III y 02122 para Bowdoin. Confirma las direcciones y los límites antes de visitar.',
       nextSteps:'Antes de asignar un grupo',check1:'Confirmar dirección exacta y responsable de cada tienda',
       check2:'Obtener aprobación de GFT para contactar las tiendas',check3:'Reclutar y capacitar a un estudiante bilingüe local',
       check4:'Aprobar por escrito la lista, horario y reglas de atribución',
+      territoryPolicy:'Territorio estudiantil: un cuadrado propuesto de 20 × 20 millas (400 mi²), NO un radio de 20 millas. El corredor del sur de Florida puede requerir dos cuadrados. Límites y tiempos sin verificar.',
       footerHome:'Programa de Embajadores de Tiendas',footerAgency:'— Agencia registrada de GFT Rewards'
     }
   };
@@ -92,8 +94,7 @@
     polk:{label:'Winter Haven / Polk',pitch:'Ambas tiendas están en Winter Haven; un embajador de Polk State podría atenderlas.',plan:['Contacta grupos estudiantiles de Polk State Winter Haven.','Agenda Santiago Market y La Plaza Mexico en una salida local.','Registra seguimientos y cualquier revisión de compatibilidad POS.'],note:'Polk State Lakeland sirve como apoyo; empieza con estudiantes de Winter Haven.'},
     tampa:{label:'Tampa / Brandon',pitch:'Tres tiendas en el centro de Tampa y una en Valrico; recluta en varios campus de Hillsborough.',plan:['Jornada Tampa: Caribbean Club → Huracan 2 → Huracan Supermarket, con alumnos de Dale Mabry/Ybor.','Jornada Brandon/Valrico: Latinos Supermarket, con alumnos de Hillsborough Brandon.','Un coordinador reúne los cuatro informes, sin suponer que se cubre todo en un día.'],note:'Dos recorridos reducen los traslados. USF Tampa amplía el reclutamiento, pero no es el campus más cercano a todas las tiendas.'},
     bradenton:{label:'Bradenton / Manatee',pitch:'Un embajador de SCF Bradenton podría visitar las dos tiendas de 15th Street E.',plan:['Recluta a través de la vida estudiantil o grupos de servicio de SCF.','Visita Samoset Fresh Market y Manasota Fresh Market en el mismo bloque.','Documenta si las relaciones comerciales requieren aprobaciones coordinadas.'],note:'New College of Florida es la alternativa; las antiguas instalaciones de USF Sarasota-Manatee cambiaron en 2026.'},
-    broward:{label:'Broward / Lauderdale Lakes y Dania',pitch:'Prioriza el campus Central de Broward, con FAU, el centro Holcombe y NSU como alternativas.',plan:['Ruta norte: verifica Ocho Rios III → Caribbean Best Market 1 en Lauderdale Lakes.','Ruta sur: Ideal Foods Dania; recluta a alguien con acceso práctico a Dania Beach.','Usa un coordinador de informes y separa las dos rutas.'],note:'Falta el sufijo de la calle de Ocho Rios III; confirma su dirección antes de elaborar rutas.'},
-    northmiami:{label:'Norte de Miami / Hialeah',pitch:'MDC Hialeah sirve para Jomara; FIU Biscayne Bay y MDC North son opciones para el norte.',plan:['Ruta Hialeah: Jomara Wholesale tras reclutar en MDC Hialeah.','Ruta norte de Miami: Caribbean Best Market 2 desde FIU Biscayne Bay o MDC North.','El coordinador consolida los informes de ambas jornadas.'],note:'Separa Hialeah del norte de Miami en dos salidas para reducir desplazamientos.'},
+    broward:{label:'Sur de Florida / corredor Broward–Miami-Dade',pitch:'Cinco tiendas en un mismo corredor de reclutamiento, pero todavía no en un único cuadrado verificado de 20 × 20 millas.',plan:['Bloque Broward: Ocho Rios III → Caribbean Best Market 1 → Ideal Foods Dania.','Bloque Miami-Dade: Caribbean Best Market 2 (North Miami) → Jomara Wholesale (Hialeah).','Revisa la cobertura exacta y asigna otro estudiante local si el corredor supera un cuadrado.','Un coordinador reúne los contactos, POS y seguimientos.'],note:'REVISAR LÍMITES: el corredor de cinco tiendas NO es un cuadrado verificado de 20 × 20 millas. Podría requerir dos células; confirma coordenadas y tiempos antes de asignar.'},
     daytona:{label:'Daytona Beach',pitch:'Daytona State es la primera opción; Embry-Riddle ofrece otro grupo estudiantil.',plan:['Contacta orientación profesional y organizaciones de Daytona State.','Confirma al gerente y la elegibilidad de La Placita.','Registra pasos siguientes; amplía solo con más tiendas confirmadas.'],note:'Un piloto de una tienda: prioriza disponibilidad local en lugar de notoriedad universitaria.'},
     boston:{label:'Dorchester / Boston',pitch:'UMass Boston está en Dorchester; Roxbury Community College es una alternativa.',plan:['Recluta un estudiante de la zona de Dorchester, idealmente en UMass Boston.','Confirma la visita al supermercado en Bowdoin Street.','Registra el resultado y la preparación técnica.'],note:'El código postal de Boston se proporcionó sin el cero inicial; confirma el formato completo.'},
     brooklyn:{label:'Canarsie / Brooklyn',pitch:'Brooklyn College es la primera opción, con Medgar Evers y Kingsborough como alternativas.',plan:['Recluta a un estudiante de Brooklyn College que conozca Canarsie.','Confirma una reunión en la tienda de Rockaway Parkway.','Registra resultados y preparación técnica.'],note:'Prioriza acceso real a Canarsie; no se presume convenio con ningún campus.'}
@@ -166,6 +167,7 @@
       foot.append(dom('span','cc-small-pill',c.stores.length+' '+(c.stores.length===1?w().store:w().stores)));
       foot.append(dom('span','cc-small-pill '+(c.priority===1?'wave1':'wave2'),getWave(c)));
       foot.append(dom('span','cc-small-pill',c.state));
+      foot.append(dom('span','cc-small-pill',text('20 × 20 mi proposed','20 × 20 mi propuesto')));
       btn.append(foot);
       btn.addEventListener('click',()=>select(c.id,true));
       list.append(btn);
@@ -202,9 +204,9 @@
     card.append(dom('small','',address));
     if(store.note){
       const translated=({
-        S04:'El código postal proporcionado es 24744; confírmalo antes de visitar.',
-        S16:'Falta el sufijo de la calle; confirma la dirección exacta antes de visitar.',
-        S22:'El código postal se proporcionó como 2122; confirma el cero inicial.'
+        S04:'Código postal corregido a 34744 según la lista actualizada; confirma la dirección.',
+        S16:'Sufijo de la calle añadido según la lista actualizada; confirma la dirección.',
+        S22:'Código postal normalizado a 02122 según la lista actualizada; confirma la dirección.'
       });
       card.append(dom('span','cc-data-warning',w().flag+' '+(lang==='es'?translated[store.id]:store.note)));
     }
@@ -221,12 +223,20 @@
     $('cc-pitch').textContent=getPitch(c);
     $('cc-store-count').textContent=c.stores.length+' '+(c.stores.length===1?w().store:w().stores);
     const badges=$('cc-selected-badges');badges.replaceChildren();
-    badges.append(dom('span','',c.state),dom('span','',getWave(c)),dom('span','',c.stores.length+' '+(c.stores.length===1?w().store:w().stores)));
+    badges.append(dom('span','',c.state),dom('span','',getWave(c)),dom('span','',c.stores.length+' '+(c.stores.length===1?w().store:w().stores,dom('span','',text('20 × 20 mi target','Meta 20 × 20 mi')));
+    if(c.boundaryReview)badges.append(dom('span','cc-boundary-alert',text('CORRIDOR · footprint unverified','CORREDOR · límites sin verificar')));
     $('cc-route-link').href=routeLink(c);
     const lead=colleges[c.lead];focusMap(lead.name,lead.address,'campus');
     const campuses=$('cc-colleges');campuses.replaceChildren();
     campuses.append(renderCollege(c,c.lead,true));
-    for(const id of c.alternates)campuses.append(renderCollege(c,id,false));
+    for(const id of c.alternates.slice(0,5))campuses.append(renderCollege(c,id,false));
+    if(c.alternates.length>5){
+      const more=dom('details','cc-more-colleges');
+      more.append(dom('summary','',text('Show ','Mostrar ')+(c.alternates.length-5)+text(' more campuses',' campus adicionales')));
+      const other=dom('div','cc-more-colleges-list');
+      for(const id of c.alternates.slice(5))other.append(renderCollege(c,id,false));
+      more.append(other);campuses.append(more);
+    }
     const storeList=$('cc-stores');storeList.replaceChildren();
     for(const id of c.stores)storeList.append(renderStore(id));
     const steps=$('cc-visit-steps');steps.replaceChildren();

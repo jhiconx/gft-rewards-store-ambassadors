@@ -153,3 +153,10 @@
 .cc-wave-item-name small{display:block;color:#80718a;font:600 11px/1.5 'DM Sans',sans-serif;margin-top:4px}
 .cc-wave-item b{font:800 16px Manrope,sans-serif;color:#8754cd}
 @media(max-width:650px){.cc-priorities{padding:45px 0}.cc-wave-grid{grid-template-columns:1fr}.cc-wave-card{padding:20px}}
+
+/* 20 × 20-mile student assignment guidance; no geometry has been measured. */
+.cc-territory-policy{border:1px solid #ded1f0;border-left:4px solid #8051d2;border-radius:14px;background:white;padding:15px 18px;margin:0 0 20px;color:#5f4c76;font-size:13px;line-height:1.65}
+.cc-badges .cc-boundary-alert{background:#fff1df;color:#855b20}
+.cc-more-colleges{border:1px solid #e5d9f3;border-radius:13px;background:#faf6ff;padding:12px}
+.cc-more-colleges>summary{font-size:12px;font-weight:800;color:#6a4ba2;cursor:pointer}
+.cc-more-colleges-list{display:grid;gap:10px;margin-top:12px}
