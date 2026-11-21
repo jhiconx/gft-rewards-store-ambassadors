@@ -4,6 +4,12 @@
   const ES = {
     'Store Ambassador Program | GFT Rewards × Iconx':'Programa de Embajadores de Tiendas | GFT Rewards × Iconx',
     'Territories':'Territorios',
+    'College clusters':'Grupos universitarios',
+    'Campus-to-store expansion':'Expansión de campus a tiendas',
+    'Recruit near the stores, not across the state.':'Recluta cerca de las tiendas, no por todo el estado.',
+    'Explore 23 prospective grocery stores grouped into 12 local visit clusters, with 28 nearby campus candidates to recruit bilingual student ambassadors. Includes college leads, store assignments and proposed visit routes.':'Explora 23 supermercados prospectivos organizados en 12 grupos locales de visita, con 28 campus candidatos para reclutar embajadores estudiantiles bilingües. Incluye opciones universitarias, tiendas asignadas y rutas sugeridas.',
+    'Prospective stores and recommended college targets — approvals and partnerships are not confirmed.':'Tiendas prospectivas y universidades recomendadas: no se han confirmado aprobaciones ni convenios.',
+    'Explore college clusters →':'Explorar grupos universitarios →',
     'Compensation':'Compensación',
     'Apply to represent your territory':'Solicita representar tu territorio',
     'Florida + New York store ambassador program':'Programa de embajadores de tiendas en Florida y Nueva York',
