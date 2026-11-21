@@ -273,7 +273,7 @@
             btn.classList.toggle('active',active);btn.setAttribute('aria-pressed',String(active));
           }
           select(c.id,true);
-          $('explorer').scrollIntoView({behavior:'smooth',block:'start'});
+          $('explorer').scrollIntoView?.({behavior:'smooth',block:'start'});
         });
         pane.append(item);
       }

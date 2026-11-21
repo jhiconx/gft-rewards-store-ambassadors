@@ -70,7 +70,7 @@ assert.match(d.getElementById('cc-selected-name').textContent,/Winter Haven/);
 const sourceLinks=[...d.querySelectorAll('.cc-college-links a')];
 assert(sourceLinks.length>=1,'College source links visible');
 click(d.querySelector('#cc-wave-one .cc-wave-item'));
-assert.equal(list().length,12,'Selecting a wave item resets filters');
+assert.equal(list().length,11,'Selecting a wave item resets filters');
 assert(d.querySelector('.cc-cluster-item.active'),'Wave item selects a cluster');
 assert(!read('college-clusters.html').includes('Sampling For Good'),'GFT site must not be presented as sampling');
 console.log('College cluster QA passed: 23 stores, 41 campuses, 11 recruiting groups, map links, search, state filters and EN/ES.');
