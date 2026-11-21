@@ -45,4 +45,26 @@ assert(!site.includes('$1 per verified'));
 assert(!translations.includes('2¢'));
 assert(!translations.includes('$0.02'));
 assert(!legacyCopy.includes('$1 per verified unique first-promotion'));
+
+// Instagram and WhatsApp remain optional, validated client-side, and bilingual.
+assert.equal(d.getElementById('instagram_handle').required,false);
+assert.equal(d.getElementById('whatsapp_number').required,false);
+assert.equal(d.getElementById('instagram_handle').name,'instagram_handle');
+assert.equal(d.getElementById('whatsapp_number').name,'whatsapp_number');
+const instagram=d.getElementById('instagram_handle'),whatsapp=d.getElementById('whatsapp_number');
+instagram.value='@gft_test.official';whatsapp.value='+1 (555) 555-1234';
+window.eval(read('i18n.js'));
+const click=el=>el.dispatchEvent(new window.MouseEvent('click',{bubbles:true}));
+click(d.querySelector('[data-language="es"]'));
+assert.equal(d.documentElement.lang,'es');
+assert.equal(d.querySelector('label[for="instagram_handle"]').textContent.trim(),'Usuario de Instagram (opcional)');
+assert.equal(d.querySelector('label[for="whatsapp_number"]').textContent.trim(),'Número de WhatsApp (opcional)');
+assert.match(d.querySelector('.contact-help').textContent,/WhatsApp son datos de contacto opcionales/);
+assert.equal(instagram.value,'@gft_test.official','Language switching must preserve Instagram entry');
+assert.equal(whatsapp.value,'+1 (555) 555-1234','Language switching must preserve WhatsApp entry');
+assert.equal(d.querySelectorAll('#territory option').length,12,'Language switching must preserve all current territories');
+click(d.querySelector('[data-language="en"]'));
+assert.equal(d.documentElement.lang,'en');
+assert.match(d.querySelector('label[for="instagram_handle"]').textContent,/Instagram handle/);
+
 console.log('Ambassador one-page QA passed: 23 stores, 11 selectable groups, restricted state, no speculative city map, internship optional.');

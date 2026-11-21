@@ -13,7 +13,7 @@
   const formState=$('state'),select=$('territory');
   const cards=$('current-territory-list'),search=$('territory-search');
   let filter='ALL';
-  const isSpanish=()=>window.GFTLocale?.getLocale?.()==='es';
+  const isSpanish=()=>document.documentElement.lang==='es';
   const say=(en,es)=>isSpanish()?es:en;
   const esLabels={
     treasure:'Fort Pierce / Costa del Tesoro',space:'Merritt Island / Costa Espacial',
@@ -100,13 +100,11 @@
     formState.value=chosen?chosen.state:'';
     document.querySelectorAll('.current-territory-card').forEach(card=>card.classList.toggle('active',Boolean(chosen&&chosen.id===card.dataset.cluster)));
   });
-  document.querySelectorAll('[data-language]').forEach(button=>button.addEventListener('click',()=>{
-    queueMicrotask(()=>{
-      const selected=select.value;
-      populateTerritories(selected);
-      renderTerritories();
-    });
-  }));
+  window.addEventListener('gft:locale-changed',()=>{
+    const chosen=select.value;
+    populateTerritories(chosen);
+    renderTerritories();
+  });
   populateTerritories();
   renderTerritories();
  
@@ -139,6 +137,19 @@
     d.bilingual=!!d.bilingual;
     d.consent=!!d.consent;
     d.language=window.GFTLocale?.getLocale?.()==='es'?'es':'en';
+    d.instagram_handle=String(d.instagram_handle||'').trim();
+    d.whatsapp_number=String(d.whatsapp_number||'').trim();
+    if(d.instagram_handle&&!/^@?[A-Za-z0-9._]{1,30}$/.test(d.instagram_handle)){
+      status.className='status error';
+      status.textContent='Enter a valid Instagram handle (letters, numbers, periods or underscores).';
+      $('instagram_handle').focus();window.GFTLocale?.refresh?.();return;
+    }
+    const whatsDigits=d.whatsapp_number.replace(/\D/g,'');
+    if(d.whatsapp_number&&(!/^\+?[0-9(). -]+$/.test(d.whatsapp_number)||whatsDigits.length<7||whatsDigits.length>15)){
+      status.className='status error';
+      status.textContent='Enter a valid WhatsApp number (7–15 digits, including country code if needed).';
+      $('whatsapp_number').focus();window.GFTLocale?.refresh?.();return;
+    }
     const chosenTerritory=available.find(c=>c.code===d.territory&&c.state===d.state);
     if(!chosenTerritory){
       status.className='status error';

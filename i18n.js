@@ -56,6 +56,12 @@
     "Apply as an ambassador →":"Solicitar como embajador →",
     "Applications are reviewed individually. You may apply only for a listed store territory. Applying does not guarantee selection, paid placement, an exclusive assignment or internship credit. Compensation and operating expectations are provided in writing before work begins.":"Las solicitudes se revisan individualmente. Solo se puede solicitar un territorio publicado con tiendas. La solicitud no garantiza selección, pago, exclusividad ni créditos académicos. Las condiciones de compensación y trabajo se entregan por escrito.",
     "Please select a listed store territory.":"Selecciona un territorio de tiendas publicado.",
+    "Instagram handle":"Usuario de Instagram",
+    "WhatsApp number":"Número de WhatsApp",
+    "Instagram and WhatsApp are optional contact details for Ambassador Program recruiting follow-up only. Providing a WhatsApp number does not enroll you in promotional messages.":"Instagram y WhatsApp son datos de contacto opcionales que se utilizarán únicamente para dar seguimiento a tu solicitud al Programa de Embajadores. Proporcionar un número de WhatsApp no te inscribe en mensajes promocionales.",
+    "Enter a valid Instagram handle (letters, numbers, periods or underscores).":"Ingresa un usuario de Instagram válido (letras, números, puntos o guiones bajos).",
+    "Enter a valid WhatsApp number (7–15 digits, including country code if needed).":"Ingresa un número de WhatsApp válido (de 7 a 15 dígitos, incluido el código del país si corresponde).",
+    "Florida · Massachusetts · New York ambassador program":"Programa de Embajadores de Florida · Massachusetts · Nueva York",
     'Compensation':'Compensación',
     'Apply to represent your territory':'Solicita representar tu territorio',
     'Florida + New York store ambassador program':'Programa de embajadores de tiendas en Florida y Nueva York',
@@ -302,6 +308,7 @@
       button.setAttribute('aria-pressed',String(on));
     }
     localize(document.body);
+    window.dispatchEvent(new CustomEvent('gft:locale-changed',{detail:{locale}}));
   }
   for(const button of document.querySelectorAll('[data-language]')){
     button.addEventListener('click',()=>setLocale(button.dataset.language));
@@ -315,6 +322,6 @@
     if(useful)schedule();
   });
   observer.observe(document.body,{childList:true,characterData:true,attributes:true,subtree:true,attributeFilter:['aria-label','placeholder','title','alt']});
-  setLocale(locale);
   window.GFTLocale={setLocale,getLocale:()=>locale,refresh:schedule};
+  setLocale(locale);
 })();

@@ -13,8 +13,8 @@
   <link rel="stylesheet" href="./styles.css?v=20261121-comp-one-cent">
   <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script defer src="./college-clusters-data.js?v=20261121-20x20"></script>
-  <script defer src="./app.js?v=20261121-single-page-served-1"></script>
-  <script defer src="./i18n.js?v=20261121-comp-one-cent"></script>
+  <script defer src="./app.js?v=20261121-contact-bilingual"></script>
+  <script defer src="./i18n.js?v=20261121-contact-bilingual"></script>
 </head>
 <body>
   <header>
@@ -36,7 +36,7 @@
     <section class="hero">
       <div class="wrap hero-grid">
         <div>
-          <span class="eyebrow">Florida + New York store ambassador program</span>
+          <span class="eyebrow">Florida · Massachusetts · New York ambassador program</span>
           <h1>Own your territory.<br><span class="grad">Grow rewards.</span></h1>
           <p class="lede">Help neighborhood grocers join <strong>GFT Rewards</strong>. Introduce store owners to the platform, guide approved stores through onboarding, and support their first shopper-rewards promotion. Work locally with Iconx.io, a registered GFT Rewards agency.</p>
           <div class="tagline" aria-label="Program highlights">
@@ -140,11 +140,14 @@
               <div class="field full"><label for="full_name">Full name <span class="required">*</span></label><input id="full_name" name="full_name" autocomplete="name" maxlength="150" required placeholder="First and last name"></div>
               <div class="field"><label for="email">Email <span class="required">*</span></label><input id="email" name="email" type="email" autocomplete="email" maxlength="254" required placeholder="you@example.com"></div>
               <div class="field"><label for="mobile">Mobile phone <span class="required">*</span></label><input id="mobile" name="mobile" type="tel" autocomplete="tel" maxlength="40" minlength="7" required placeholder="(555) 555-1234"></div>
+              <div class="field"><label for="instagram_handle">Instagram handle <span class="muted">(optional)</span></label><input id="instagram_handle" name="instagram_handle" type="text" maxlength="31" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="@yourhandle"></div>
+              <div class="field"><label for="whatsapp_number">WhatsApp number <span class="muted">(optional)</span></label><input id="whatsapp_number" name="whatsapp_number" type="tel" maxlength="40" autocomplete="off" placeholder="+1 (555) 555-1234"></div>
               <input type="hidden" name="state" id="state" value="">
               <div class="field"><label for="territory">Current available store territory <span class="required">*</span></label><select name="territory" id="territory" required><option value="">Select a current store territory</option></select></div>
               <div class="field full"><label for="base_city">Your city or ZIP code <span class="required">*</span></label><input name="base_city" id="base_city" maxlength="120" required placeholder="Where are you based?"></div>
               <div class="field full"><label for="retail_experience">Store or sales experience <span class="muted">(optional)</span></label><textarea name="retail_experience" id="retail_experience" maxlength="1600" placeholder="Share retail experience, or your college and internship interest if you are a student"></textarea></div>
             </div>
+            <p class="fine contact-help">Instagram and WhatsApp are optional contact details for Ambassador Program recruiting follow-up only. Providing a WhatsApp number does not enroll you in promotional messages.</p>
             <label class="consent language-check"><input name="bilingual" type="checkbox" id="bilingual" required><span>I can confidently meet with store owners and train staff in <strong>both English and Spanish</strong>. I understand that completing GFT Rewards training is required before field assignments. <span class="required">*</span></span></label>
             <label class="consent"><input name="consent" type="checkbox" id="consent" required><span>I agree that Iconx.io may contact me by email or phone regarding my GFT Rewards Store Ambassador application. This is not consent to recurring promotional texts. <span class="required">*</span></span></label>
             <div class="trap" aria-hidden="true"><label for="website">Leave this field empty</label><input name="website" id="website" tabindex="-1" autocomplete="off"></div>
