@@ -32,4 +32,26 @@ jobs:
               methods=response.headers.get('Access-Control-Allow-Methods','')
           print('Browser preflight:',allowed,methods)
           if allowed!=origin or 'POST' not in methods: raise SystemExit('GFT browser submission CORS check failed')
+          # Negative-only tests: ensure unavailable territory codes never create an applicant or email.
+          # A 400 is expected before the storage and sending branches run.
+          import urllib.error
+          payload_base={
+              'submission_id':'36d8e7ab-70ec-4af7-a0ab-6292ca23f825',
+              'full_name':'GFT Unavailable Territory QA',
+              'email':'delivered@resend.dev','mobile':'2025550123',
+              'base_city':'Miami','retail_experience':'AUTOMATED INVALID-TERRITORY TEST',
+              'bilingual':True,'consent':True,'language':'en','website':''
+          }
+          for state,territory in [('FL','FL-01'),('FL','MA-50'),('NY','NY-20'),('MA','MA-41')]:
+              body={**payload_base,'state':state,'territory':territory}
+              req=urllib.request.Request(url,method='POST',headers={
+                  'Content-Type':'application/json','Origin':origin
+              },data=json.dumps(body).encode('utf-8'))
+              try:
+                  with urllib.request.urlopen(req,timeout=20) as response:
+                      raise SystemExit('Unavailable territory incorrectly accepted: '+territory)
+              except urllib.error.HTTPError as error:
+                  print('Rejected unavailable choice:',state,territory,'HTTP',error.code)
+                  if error.code!=400: raise SystemExit('Unexpected result for '+territory)
+          print('GFT backend rejected all tested non-listed territory selections without sending emails')
           PY
