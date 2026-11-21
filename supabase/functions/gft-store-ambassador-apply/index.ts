@@ -60,6 +60,22 @@ async function mark(rowId: string, status: "sent" | "failed", providerId?: strin
     signal: AbortSignal.timeout(8000),
   }).catch(() => {});
 }
+async function markConfirmation(rowId: string, confirmationAccepted: boolean, providerId?: string) {
+  const update: Record<string, unknown> = {
+    confirmation_status: confirmationAccepted ? "sent" : "failed",
+    confirmation_attempts: 1,
+  };
+  if (confirmationAccepted) {
+    update.confirmation_provider_id = providerId || null;
+    update.confirmation_sent_at = new Date().toISOString();
+  }
+  const response = await fetch(SUPABASE + "/rest/v1/" + TABLE + "?id=eq." + rowId, {
+    method: "PATCH", headers: svcHeaders(), body: JSON.stringify(update),
+    signal: AbortSignal.timeout(8000),
+  });
+  if (!response.ok) console.error("GFT welcome status update failed",response.status);
+}
+
 function valid(body: Record<string, unknown>) {
   const d = {
     full_name: str(body.full_name, 150),
@@ -108,6 +124,21 @@ Deno.serve(async (req: Request) => {
       project: "GFT Rewards Store Ambassadors"
     }, 200, origin);
   }
+  // Read-only capability check: only an existing secret submission UUID + private row UUID + matching email can authorize the Resend relay.
+  if (req.method === "GET" && new URL(req.url).searchParams.has("verify_relay")) {
+    const params = new URL(req.url).searchParams;
+    const id = str(params.get("row_id"),36);
+    const sid = str(params.get("submission_id"),36);
+    const email = str(params.get("email"),254).toLowerCase();
+    const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+    if (!uuid.test(id) || !uuid.test(sid) || !/^\S+@\S+\.\S+$/.test(email) || !SERVICE) {
+      return json({ok:false,verified:false},403,origin);
+    }
+    try {
+      const matches=await getRows("select=id&id=eq."+id+"&submission_id=eq."+sid+"&email=eq."+encodeURIComponent(email)+"&limit=1");
+      return json({ok:true,verified:matches.length===1},matches.length===1?200:403,origin);
+    } catch { return json({ok:false,verified:false},503,origin); }
+  }
   if (req.method !== "POST") return json({ ok: false, error: "Method not allowed" }, 405, origin);
   if (!SUPABASE || !SERVICE) return json({ ok: false, error: "Application storage is unavailable. Please try again later." }, 503, origin);
   let raw = "";
@@ -123,11 +154,11 @@ Deno.serve(async (req: Request) => {
   if (!eligible) return json({ ok: false, error: "Please complete all required application fields." }, 400, origin);
   try {
     let row: Record<string, unknown> | undefined;
-    const found = await getRows("select=id,submission_id,notification_status&submission_id=eq." + d.submission_id + "&limit=1");
+    const found = await getRows("select=id,submission_id,notification_status,confirmation_status&submission_id=eq." + d.submission_id + "&limit=1");
     row = found[0];
     if (!row) {
       const cutoff = new Date(Date.now() - 60 * 60 * 1000).toISOString();
-      const recent = await getRows("select=id,submission_id,notification_status&email=eq." +
+      const recent = await getRows("select=id,submission_id,notification_status,confirmation_status&email=eq." +
         encodeURIComponent(d.email) + "&territory=eq." + d.territory + "&created_at=gte." +
         encodeURIComponent(cutoff) + "&order=created_at.desc&limit=1");
       row = recent[0];
@@ -142,7 +173,7 @@ Deno.serve(async (req: Request) => {
         language: d.language, source: "gft-store-ambassadors",
       });
     }
-    if (row.notification_status === "sent") return json({ ok: true, received: true, emailed: true }, 200, origin);
+    if (row.notification_status === "sent") return json({ ok: true, received: true, emailed: true, confirmationSent: row.confirmation_status === "sent" }, 200, origin);
     const directMail = Boolean(RESEND && FROM);
     let emailResponse: Response;
     if (directMail) {
@@ -177,9 +208,10 @@ Deno.serve(async (req: Request) => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          id: String(row.id), full_name: d.full_name, email: d.email, mobile: d.mobile,
+          id: String(row.id), submission_id: String(row.submission_id || d.submission_id),
+          full_name: d.full_name, email: d.email, mobile: d.mobile,
           state: d.state, territory: d.territory, base_city: d.base_city,
-          retail_experience: d.retail_experience,
+          retail_experience: d.retail_experience, language: d.language,
         }),
         signal: AbortSignal.timeout(10000),
       });
@@ -192,7 +224,10 @@ Deno.serve(async (req: Request) => {
       return json({ ok: false, received: true, emailed: false, error: "Application saved, but recruiting email was not accepted. Please try again later." }, 502, origin);
     }
     await mark(String(row.id), "sent", directMail ? data.id : undefined);
-    return json({ ok: true, received: true, emailed: true }, 200, origin);
+    const confirmationAccepted = directMail ? false : data.confirmationAccepted === true;
+    try { await markConfirmation(String(row.id), confirmationAccepted, directMail ? undefined : String(data.confirmationId || "")); }
+    catch { console.error("GFT applicant confirmation tracking failed"); }
+    return json({ ok: true, received: true, emailed: true, confirmationSent: confirmationAccepted }, 200, origin);
   } catch (err) {
     console.error("GFT application handler error", err instanceof Error ? err.message.replace(/[^\w-]/g, "") : "unknown");
     return json({ ok: false, error: "Unable to process your application right now. Please try again later." }, 503, origin);
