@@ -126,6 +126,8 @@
     "Your application was saved, but the recruiting email could not be sent. Please try again later.":"Tu solicitud se guardó, pero no se pudo enviar el correo de notificación al equipo de contratación. Inténtalo de nuevo más tarde.",
     "We could not submit your application right now. Please try again later.":"No pudimos enviar tu solicitud en este momento. Inténtalo de nuevo más tarde.",
     "Application received and sent for delivery to the recruiting team. Thank you!":"Hemos recibido tu solicitud y la hemos enviado para su entrega al equipo de contratación. ¡Gracias!",
+    "Application received! A confirmation email was accepted for delivery from GFTAmbassadors@iconx.io.":"¡Recibimos tu solicitud! Se aceptó el correo de confirmación para su envío desde GFTAmbassadors@iconx.io.",
+    "Application received, but your acknowledgment email could not be sent. Our recruiting team has your application.":"Recibimos tu solicitud, pero no pudimos enviar el correo de confirmación. Nuestro equipo de reclutamiento ya tiene tu información.",
     "Application submitted ✓":"Solicitud enviada ✓",
     'The essentials':'Lo esencial',
     'Quick questions':'Preguntas frecuentes',
