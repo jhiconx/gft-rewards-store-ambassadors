@@ -1,0 +1,25 @@
+name: Inspect GFT Retail Applicant Sender Verification
+on:
+  push:
+    paths: ['.github/workflows/gft-retail-sender-verification.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  sender-verification:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Resend verification status without sending messages
+        run: |
+          python3 - <<'PY'
+          import json, urllib.request
+          url='https://iconx.io/api/gft-ambassador-mail?health=1&sender=1'
+          with urllib.request.urlopen(url, timeout=25) as response:
+              payload=json.load(response)
+          fields=('ok','checkAvailable','rootDomainVerified','rootDomainStatus','sendingEnabled','providerHttp','hasMore')
+          print('Verification:',{k:payload.get(k) for k in fields if k in payload})
+          if not payload.get('checkAvailable'):
+              raise SystemExit('Resend domain verification could not be inspected')
+          if not payload.get('rootDomainVerified'):
+              raise SystemExit('The requested @iconx.io sender is not verified for sending in this Resend account')
+          PY
