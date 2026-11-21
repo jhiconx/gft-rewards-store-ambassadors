@@ -75,3 +75,20 @@ Supabase function source is versioned at `supabase/functions/gft-store-ambassado
 ## Applicant acknowledgment email — GFT Retail Solutions
 
 After a GFT Store Ambassador application is stored and the internal recruiting notification is accepted, the Iconx.io Resend relay attempts a separate applicant email from the **requested sender** `GFTAmbassadors@iconx.io`, shown as `GFT Retail Solutions`. The message follows the approved Campus Ambassador confirmation layout, updated to say **GFT Retail Ambassador**, **GFT Retail Solutions**, and **Retail Execution**. English/Spanish content follows the submitted form language. The internal recipients remain `rcramer@iconx.io` and `support@gftrewards.com`. Provider acceptance and applicant-confirmation status are tracked separately in `confirmation_status`, `confirmation_provider_id` and `confirmation_sent_at`. A rejected applicant sender does not erase a saved application or an accepted internal recruiting email; the website reports a confirmation-email warning without opening Mac Mail. Sending from the specified `@iconx.io` sender requires the domain to be authorized in Resend.
+
+## Retail Ambassador applicant confirmation sender (November 21, 2026)
+
+After each accepted GFT Retail Ambassador signup, the Iconx.io Resend relay attempts a separate styled welcome message based on the original Sampling For Good ambassador confirmation layout. The GFT version uses **GFT Retail Ambassador**, **GFT Retail Solutions**, and **Retail Execution**, with matching English and Spanish language variants. It is addressed to the applicant and uses the exact requested sender **GFT Retail Solutions <GFTAmbassadors@iconx.io>**. The original internal notifications still go to `rcramer@iconx.io` and `support@gftrewards.com`.
+
+The welcome message has its own Resend idempotency key and private Supabase tracking: `confirmation_status`, `confirmation_provider_id`, `confirmation_sent_at`, `confirmation_attempts` and `confirmation_failure_reason`. A failed confirmation does not invalidate the saved application. A later retry of the same accepted application sends **only** the applicant acknowledgment, not another internal recruiting notification, after verifying the GFT row ID and submission ID.
+
+### Sender authorization still required
+
+The controlled test showed that the **currently configured Iconx Resend API key is not authorized to send from `iconx.io`**. Its response was: `This API key is not authorized to send emails from iconx.io`. The existing admin email was accepted, but the applicant confirmation was rejected. To enable the exact requested sender without changing the existing admin sender:
+
+1. In the same Resend account used by Iconx, verify that the **root domain `iconx.io`** is authorized for sending. If only `send.iconx.io` is verified, authorize the root separately.
+2. Create a **dedicated sending API key scoped to `iconx.io`** (or another key with sending permission covering that root).
+3. In **Vercel → `iconx-io` project → Settings → Environment Variables**, add `GFT_RETAIL_RESEND_API_KEY` with that secret for Production, then redeploy the `iconx-io` project. Never paste this key into public GitHub source or the website client.
+4. Repeat the controlled GFT confirmation test. Verify `confirmation_status = sent` in Supabase and final inbox delivery separately.
+
+The relay intentionally preserves the existing `RESEND_API_KEY` for recruiting notices and prefers the dedicated `GFT_RETAIL_RESEND_API_KEY` **only for applicant confirmations**. The frontend correctly reports when the acknowledgment is not accepted.
