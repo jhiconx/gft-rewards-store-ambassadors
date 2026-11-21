@@ -1,0 +1,50 @@
+name: GFT Retail Applicant Acknowledgment Acceptance
+on:
+  push:
+    paths:
+      - .github/workflows/gft-retail-welcome-acceptance-qa.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  signup-and-acknowledge:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - name: Submit a synthetic GFT application and verify applicant acknowledgment
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json, urllib.request, urllib.error
+          url='https://yxfqfrgjjbxagrioeqzz.supabase.co/functions/v1/gft-store-ambassador-apply'
+          payload={
+            'submission_id':'7aa1c773-8bce-4666-aa62-e238e4e810f7',
+            'full_name':'GFT Retail Welcome QA Ignore',
+            'email':'delivered@resend.dev',
+            'mobile':'2025550123',
+            'state':'FL',
+            'territory':'FL-01',
+            'base_city':'Miami automated test',
+            'retail_experience':'SYNTHETIC TEST ONLY - NOT A REAL APPLICANT',
+            'bilingual':True,
+            'consent':True,
+            'language':'en',
+            'website':''
+          }
+          request=urllib.request.Request(url,method='POST',data=json.dumps(payload).encode(),
+            headers={'Content-Type':'application/json','Origin':'https://gft-rewards-store-ambassadors.vercel.app'})
+          try:
+            with urllib.request.urlopen(request,timeout=32) as response:
+              status=response.status;result=json.load(response)
+          except urllib.error.HTTPError as e:
+            status=e.code;result=json.load(e)
+          print('Result:',{'status':status,'ok':result.get('ok'),'received':result.get('received'),
+            'recruitingNotificationAccepted':result.get('emailed'),
+            'applicantConfirmationAccepted':result.get('confirmationSent'),
+            'error':result.get('error')})
+          if status!=200 or not result.get('ok') or not result.get('received') or not result.get('emailed'):
+            raise SystemExit('Application or recruiting notification did not complete')
+          if result.get('confirmationSent') is not True:
+            raise SystemExit('Applicant confirmation sender was NOT accepted by Resend')
+          print('GFT Retail applicant acknowledgment accepted for delivery.')
+          PY
