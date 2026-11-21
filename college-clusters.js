@@ -10,6 +10,9 @@
     en: {
       explorerNav:'Explore clusters',ambassadorNav:'Ambassador program',apply:'Apply to be an ambassador',
       eyebrow:'01 / GFT college-to-store field program',hero1:'One campus.',hero2:'A neighborhood of stores.',
+      wavesEyebrow:'Proposed recruitment rollout',wavesTitle:'Recruit the first six college leads. Then expand.',
+      wavesSub:'Phase 1 covers the multi-store markets first; Phase 2 adds the six single-store or specialty territories. These are recommended assignments, not commitments.',
+      wave1Tag:'WAVE 1',wave2Tag:'WAVE 2',wave1Title:'Multi-store recruiting',wave2Title:'Single-store coverage',waveStores:'stores',
       lede:'Build a locally recruited, bilingual college ambassador team around stores GFT Rewards is attempting to onboard. Each cluster connects an actual college campus to a practical list of prospective grocery-store visits.',
       explore:'Explore store clusters',workflow:'View the visit playbook',
       targetDisclaimer:'Prospective distribution targets only — no store participation or campus partnership is represented as confirmed.',
@@ -45,6 +48,9 @@
     es: {
       explorerNav:'Explorar grupos',ambassadorNav:'Programa de embajadores',apply:'Solicitar ser embajador',
       eyebrow:'01 / Programa GFT de universidades y tiendas',hero1:'Un campus.',hero2:'Una comunidad de tiendas.',
+      wavesEyebrow:'Lanzamiento propuesto',wavesTitle:'Recluta los primeros seis embajadores universitarios. Después amplía.',
+      wavesSub:'La fase 1 cubre primero los mercados con varias tiendas; la fase 2 agrega seis zonas de una sola tienda o especializadas. Son asignaciones sugeridas, no compromisos.',
+      wave1Tag:'FASE 1',wave2Tag:'FASE 2',wave1Title:'Reclutamiento para varias tiendas',wave2Title:'Cobertura de una sola tienda',waveStores:'tiendas',
       lede:'Forma un equipo local de embajadores universitarios bilingües cerca de las tiendas que GFT Rewards busca incorporar. Cada grupo vincula un campus real con una lista práctica de visitas a supermercados prospectivos.',
       explore:'Explorar grupos de tiendas',workflow:'Ver el plan de visitas',
       targetDisclaimer:'Tiendas prospectivas solamente: no se ha confirmado la participación de tiendas ni acuerdos con universidades.',
@@ -236,6 +242,33 @@
       history.replaceState(null,'',u.pathname+u.search+u.hash);
     }
   }
+  function renderWaves(){
+    for(const n of [1,2]){
+      const pane=$('cc-wave-'+(n===1?'one':'two'));
+      pane.replaceChildren();
+      const wave=data.clusters.filter(c=>c.priority===n).sort((a,b)=>b.stores.length-a.stores.length||a.label.localeCompare(b.label));
+      for(const c of wave){
+        const item=dom('button','cc-wave-item');
+        item.type='button';
+        const label=dom('span','cc-wave-item-name',clusterName(c));
+        const campus=dom('small','',colleges[c.lead].name);
+        label.append(campus);
+        const count=dom('b','',String(c.stores.length));
+        item.append(label,count);
+        item.addEventListener('click',()=>{
+          stateFilter='ALL';waveFilter='all';searchTerm='';
+          $('cc-priority').value='all';$('cc-search').value='';
+          for(const btn of document.querySelectorAll('[data-state]')){
+            const active=btn.dataset.state==='ALL';
+            btn.classList.toggle('active',active);btn.setAttribute('aria-pressed',String(active));
+          }
+          select(c.id,true);
+          $('explorer').scrollIntoView({behavior:'smooth',block:'start'});
+        });
+        pane.append(item);
+      }
+    }
+  }
   function refreshLocale(){
     document.documentElement.lang=lang;
     document.title=text('College Ambassador Store Clusters | GFT Rewards × Iconx.io',
@@ -254,7 +287,7 @@
     $('cc-state-filters').setAttribute('aria-label',text('Filter clusters by state','Filtrar grupos por estado'));
     $('cc-cluster-list').setAttribute('aria-label',text('Select a store cluster','Seleccionar un grupo de tiendas'));
     $('cc-priority').setAttribute('aria-label',text('Filter by launch wave','Filtrar por fase de lanzamiento'));
-    renderList();renderDetail();
+    renderList();renderDetail();renderWaves();
   }
   for(const button of document.querySelectorAll('[data-cc-lang]')){
     button.addEventListener('click',()=>{
