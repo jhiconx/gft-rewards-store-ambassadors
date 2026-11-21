@@ -299,6 +299,7 @@
       window.GFTLocale?.refresh?.();return;
     }
     submitting=true;
+    button.setAttribute('aria-busy','true');
     button.disabled=true;
     button.textContent='Sending your application securely…';
     window.GFTLocale?.refresh?.();
@@ -330,6 +331,8 @@
       status.textContent='We could not submit your application right now. Please try again later.';
     }finally{
       submitting=false;
+      button.removeAttribute('aria-busy');
+      button.classList.toggle('is-submitted',submitted);
       button.textContent=submitted?'Application submitted ✓':'Submit my application →';
       button.disabled=submitted;
       window.GFTLocale?.refresh?.();
