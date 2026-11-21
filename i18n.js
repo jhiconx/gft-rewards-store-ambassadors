@@ -145,6 +145,7 @@
     'I agree that Iconx.io may contact me by email or phone regarding my GFT Rewards Store Ambassador application. This is not consent to recurring promotional texts.':'Acepto que Iconx.io me contacte por correo electrónico o teléfono en relación con mi solicitud al programa de embajadores de tiendas GFT Rewards. Esto no constituye consentimiento para recibir mensajes promocionales recurrentes.',
     'Leave this field empty':'Deja este campo vacío',
     'Submit my application':'Enviar mi solicitud',
+    "Applications are sent securely through Iconx's Resend email service to the GFT Rewards recruiting team. You will see a confirmation here. No email application is needed.":"Las solicitudes se envían de forma segura mediante el servicio de correo Resend de Iconx al equipo de reclutamiento de GFT Rewards. Verás una confirmación aquí. No necesitas abrir ninguna aplicación de correo.",
     "Applications are sent securely through Iconx's Resend email service to":"Las solicitudes se envían de forma segura mediante el servicio de correo Resend de Iconx a",
     ". You will see a confirmation here. No email application is needed.":". Verás una confirmación aquí. No necesitas abrir ninguna aplicación de correo.",
     "Sending your application securely…":"Enviando tu solicitud de forma segura…",
