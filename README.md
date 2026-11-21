@@ -15,6 +15,23 @@ Standalone GFT Rewards field-recruiting page for **Florida and New York**, coord
 - Searchable city list, state toggle, click-to-select geographic tiles and application territory picker.
 - The street map uses Leaflet / OpenStreetMap tiles when available. If tiles do not fully load, a real embedded map (Google Maps, with an OpenStreetMap alternative) appears beneath the pink 20 × 20-mile planning box. The embedded view's box is illustrative; Leaflet's geographic rectangle follows the approximate mile coordinates.
 
+## College ambassador store clusters — November 21, 2026
+
+A separate bilingual page at `/college-clusters.html` is linked from the main GFT Rewards Store Ambassador homepage. It uses the existing GFT + Iconx branding, with no changes to the application or email delivery systems.
+
+- **23 prospective stores:** 21 Florida, 1 New York, 1 Massachusetts, taken from the supplied target list.
+- **12 field clusters:** 10 Florida, 1 Brooklyn, 1 Dorchester/Boston. Each store is assigned exactly once to a proposed cluster.
+- **28 recommended campus candidates:** primary and alternate institutions, each with its own official college source URL and published campus address.
+- **Wave 1:** 6 multi-store clusters and 17 prospective stores. **Wave 2:** 6 single-store/specialty clusters and 6 stores.
+- The page supports search by college, store, city or market; state/launch-wave filters; campus and store map views; suggested multi-stop Google Maps routes; English/Spanish translation; and direct links to the existing ambassador application.
+- Campus “lead” rankings and visit routes are qualitative planning recommendations, not measured drive times or enrollment statistics.
+- Store addresses are **user supplied and not independently verified**. Flagged source records: Unidos 2 Kissimmee ZIP `24744`; Ocho Rios III street suffix; Boston ZIP `2122`. These remain displayed as supplied and should be confirmed before dispatch.
+- The USF Sarasota-Manatee campus facilities transitioned to New College of Florida in July 2026; therefore SCF Bradenton and New College are the Bradenton recruiting targets rather than treating the old USF site as a standalone current school.
+
+**New files:** `college-clusters.html`, `college-clusters-data.js`, `college-clusters.css`, `college-clusters.js`, `tests/college-clusters-smoke.cjs`, and `.github/workflows/college-clusters-qa.yml`.
+
+All campus source links are listed in the `colleges` entries of `college-clusters-data.js`; store entries are prospective CRM targets, not verified active GFT merchants. The site does not claim any agreement with a college, student ambassador, or store. Recruitment, POS checks, and assignment require separate approval.
+
 ## Application delivery — existing Iconx stack
 
 Applications are posted to the dedicated Supabase Edge Function `gft-store-ambassador-apply` in existing project `yxfqfrgjjbxagrioeqzz` and saved to the separate private RLS table `public.gft_store_ambassador_applications`. The Supabase project does not currently have its own `RESEND_API_KEY`, so the function uses the **existing Iconx.io Vercel Resend email service** at `https://iconx.io/api/gft-ambassador-mail`. This relay has fixed recipients **rcramer@iconx.io** and **support@gftrewards.com**, validates applications, and never accepts arbitrary email recipients. The browser never opens a local email application. The GFT form displays success only after Resend accepts the notification. Its stored submission ID supports safe retries.
