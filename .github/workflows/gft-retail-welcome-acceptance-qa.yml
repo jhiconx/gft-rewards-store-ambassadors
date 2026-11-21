@@ -18,8 +18,8 @@ jobs:
           import json, urllib.request, urllib.error
           url='https://yxfqfrgjjbxagrioeqzz.supabase.co/functions/v1/gft-store-ambassador-apply'
           payload={
-            'submission_id':'7aa1c773-8bce-4666-aa62-e238e4e810f7',
-            'full_name':'GFT Retail Welcome QA Ignore',
+            'submission_id':'bd715b8b-2739-4e3c-836f-b7a1e8074526',
+            'full_name':'GFT Sender Name QA Ignore',
             'email':'delivered@resend.dev',
             'mobile':'2025550123',
             'state':'FL',
