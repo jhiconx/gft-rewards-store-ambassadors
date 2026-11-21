@@ -10,10 +10,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoXwE5LAO3o+2w=" crossorigin="">
-  <link rel="stylesheet" href="./styles.css?v=20261121-submit-cursor-fix">
+  <link rel="stylesheet" href="./styles.css?v=20261121-internship-1">
   <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script defer src="./app.js?v=20261121-submit-cursor-fix"></script>
-  <script defer src="./i18n.js?v=20261121-retail-ack"></script>
+  <script defer src="./i18n.js?v=20261121-internship-1"></script>
 </head>
 <body>
   <header>
@@ -24,7 +24,7 @@
           <button class="language-choice active" type="button" data-language="en" lang="en" aria-pressed="true">EN</button>
           <button class="language-choice" type="button" data-language="es" lang="es" aria-pressed="false">ES</button>
         </div>
-        <a class="desktop-link" href="./college-clusters.html">College clusters</a>
+        <a class="desktop-link" href="./college-clusters.html">Ambassador Program</a>
         <a class="desktop-link" href="#territories">Territories</a>
         <a class="desktop-link" href="#compensation">Compensation</a>
         <a class="pillbtn" href="#ambassador-application">Apply to represent your territory</a>
@@ -79,18 +79,30 @@
       <div class="wrap">
         <div class="card" style="border:1px solid #e6daf7;display:flex;align-items:center;justify-content:space-between;gap:25px;flex-wrap:wrap">
           <div style="flex:1;min-width:min(300px,100%)">
-            <span class="eyebrow">Campus-to-store expansion</span>
-            <h2 style="font-size:clamp(27px,3vw,37px)">Recruit near the stores, not across the state.</h2>
-            <p class="muted" style="font-size:15px;max-width:670px">Explore 23 prospective grocery stores grouped into 12 local visit clusters, with 28 nearby campus candidates to recruit bilingual student ambassadors. Includes college leads, store assignments and proposed visit routes.</p>
-            <p class="fine">Prospective stores and recommended college targets — approvals and partnerships are not confirmed.</p>
+            <span class="eyebrow">Ambassador Program · Current store territories</span>
+            <h2 style="font-size:clamp(27px,3vw,37px)">Start with today’s stores. Grow into new territories.</h2>
+            <p class="muted" style="font-size:15px;max-width:670px">Our current starting footprint includes 23 prospective stores in 11 recruiting groups, with 41 nearby campus candidates. These are the store clusters currently listed for ambassador recruiting. As GFT Rewards onboards additional approved stores, we will add more clusters and territories to the Ambassador Program.</p>
+            <p class="fine">Current listed footprint only; stores and campus partners are prospective. No assignment or partnership is guaranteed.</p>
           </div>
-          <a href="./college-clusters.html" class="pillbtn gradient">Explore college clusters →</a>
+          <a href="./college-clusters.html" class="pillbtn gradient">Ambassador Program →</a>
         </div>
+      </div>
+    </section>
+
+    <section class="section" id="college-internship" style="background:#fff">
+      <div class="wrap">
+        <div class="center"><span class="eyebrow">College students · Ambassador internship track</span><h2>Real-world retail experience. <span class="grad">An internship pathway.</span></h2><p>College students can apply to the same GFT Rewards Ambassador Program and request consideration for an internship track. The existing ambassador responsibilities, bilingual requirements, platform training, and written compensation terms remain in place.</p></div>
+        <div class="cards">
+          <article class="card"><div class="card-icon">🎯</div><h3>Major brand campaigns</h3><p>Work alongside approved major-brand campaigns, learning how offers are prepared, launched, tracked, and supported at participating retailers.</p></article>
+          <article class="card"><div class="card-icon">🏪</div><h3>Retailer account management</h3><p>Meet store owners and managers, coordinate onboarding and launch tasks, and learn hands-on retail account management and follow-up.</p></article>
+          <article class="card"><div class="card-icon">📱</div><h3>Shopper + account-specific loyalty</h3><p>Learn how shopper rewards, account-specific loyalty offers, checkout redemptions, reporting, and retail engagement work in practice.</p></article>
+        </div>
+        <div class="cc-internship-strip"><div><strong>Verified internship opportunities for eligible students</strong><p>Approved students may arrange a documented work plan, activity or hours record, and supervisor confirmation for internship verification. Their college or department must approve its own internship requirements and any academic credit. Credit and school recognition are not automatic.</p></div><a href="#ambassador-application" class="pillbtn gradient">Apply as a student ambassador →</a></div>
       </div>
     </section>
     <section class="section stripe" id="territories">
       <div class="wrap">
-        <div class="center"><span class="eyebrow">Your neighborhood. Your territory.</span><h2>One local market. <span class="grad">One clear mission.</span></h2><p>Explore proposed 20-mile × 20-mile planning territories centered on major cities across Florida and New York. Select a location to view its coverage and apply.</p></div>
+        <div class="center"><span class="eyebrow">Your neighborhood. Your territory.</span><h2>One local market. <span class="grad">One clear mission.</span></h2><p>Explore proposed 20-mile × 20-mile planning territories centered on major cities across Florida and New York. Select a location to view its coverage and apply.</p><p class="fine">These city squares are planning areas, not necessarily current store-backed assignments. The 11 listed recruiting groups are on the Ambassador Program page. More groups will be listed as approved stores onboard.</p></div>
         <div class="territory-toolbar">
           <div class="state-tabs" role="group" aria-label="Select state">
             <button class="state-tab active" type="button" data-state="FL" aria-pressed="true">☀️ Florida <span id="fl-count" class="tab-count"></span></button>
@@ -142,6 +154,7 @@
             <li><span class="check">✓</span><span>You can support stores through their first eligible promotion</span></li>
           </ul>
           <p class="fine">Applications are reviewed individually. Applying does not guarantee selection, a territory assignment, paid placement, or an exclusive territory. Compensation and operating expectations are provided in writing before work begins.</p>
+          <p class="fine"><strong>College student?</strong> Use this same application for the internship track. In the optional experience field, note your college and internship interest. Verification requires approval and school acceptance.</p>
           <div class="agency-note"><img class="agency-logo-inline" src="./assets/iconx-agency-logo.svg" alt="Iconx.io — A registered GFT Rewards Agency"><div><strong>GFT Rewards</strong><small>Store recruiting and field coordination by <a href="https://iconx-io.vercel.app/#home" target="_blank" rel="noopener noreferrer"><strong>Iconx.io</strong></a>, A Registered GFT Rewards Agency</small></div></div>
         </div>
         <div class="application" id="ambassador-application">
@@ -154,7 +167,7 @@
               <div class="field"><label for="state">State <span class="required">*</span></label><select name="state" id="state" required><option value="">Select a state</option><option value="FL">Florida</option><option value="NY">New York</option></select></div>
               <div class="field"><label for="territory">Preferred territory <span class="required">*</span></label><select name="territory" id="territory" required disabled><option value="">Choose a state first</option></select></div>
               <div class="field full"><label for="base_city">Your city or ZIP code <span class="required">*</span></label><input name="base_city" id="base_city" maxlength="120" required placeholder="Where are you based?"></div>
-              <div class="field full"><label for="retail_experience">Store or sales experience <span class="muted">(optional)</span></label><textarea name="retail_experience" id="retail_experience" maxlength="1600" placeholder="Tell us about your experience with independent grocers, retail operations, local sales, or field marketing"></textarea></div>
+              <div class="field full"><label for="retail_experience">Store or sales experience <span class="muted">(optional)</span></label><textarea name="retail_experience" id="retail_experience" maxlength="1600" placeholder="Share retail experience, or your college and internship interest if you are a student"></textarea></div>
             </div>
             <label class="consent language-check"><input name="bilingual" type="checkbox" id="bilingual" required><span>I can confidently meet with store owners and train staff in <strong>both English and Spanish</strong>. I understand that completing GFT Rewards training is required before field assignments. <span class="required">*</span></span></label>
             <label class="consent"><input name="consent" type="checkbox" id="consent" required><span>I agree that Iconx.io may contact me by email or phone regarding my GFT Rewards Store Ambassador application. This is not consent to recurring promotional texts. <span class="required">*</span></span></label>
@@ -175,6 +188,7 @@
       <details class="faq"><summary>How do I earn the $500 territory bonus?</summary><p>The one-time bonus is triggered after every store on your pre-approved territory roster completes qualifying registration and its first eligible promotion. The roster and completion rules must be confirmed in writing before work begins.</p></details>
       <details class="faq"><summary>Is a 20 × 20-mile territory exclusively mine?</summary><p>Not automatically. These are proposed geographic planning zones. Final territory assignment, store attribution and any exclusivity are decided in the written ambassador agreement. Some proposed zones overlap.</p></details>
       <details class="faq"><summary>Can I sign up any store right away?</summary><p>No. Stores must be approved by the GFT team, including any necessary point-of-sale or technical readiness checks, before a qualifying signup or promotion can be completed.</p></details>
+      <details class="faq"><summary>Can college students participate in a verified internship?</summary><p>Eligible students can request an internship track while completing the same ambassador duties. Work may include major-brand campaigns, retailer management, shopper loyalty, and account-specific loyalty. Hours and responsibilities may be documented and reviewed by a supervisor; the school determines whether participation meets its internship or credit requirements.</p></details>
       <details class="faq"><summary>Is this a Sampling For Good role?</summary><p>No. This is a separate grocery-store recruitment and onboarding program for GFT Rewards. Iconx.io remains the recruiting and field agency.</p></details>
     </div></section>
   </main>
