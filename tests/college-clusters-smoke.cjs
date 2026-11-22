@@ -63,6 +63,14 @@ assert.match(d.querySelector('.contact-help').textContent,/WhatsApp son datos de
 assert.equal(instagram.value,'@gft_test.official','Language switching must preserve Instagram entry');
 assert.equal(whatsapp.value,'+1 (555) 555-1234','Language switching must preserve WhatsApp entry');
 assert.equal(d.querySelectorAll('#territory option').length,12,'Language switching must preserve all current territories');
+const spanishCards=[...comp.querySelectorAll('.comp-card')].map(c=>c.textContent);
+assert.match(spanishCards[0],/Gana\s+\$25 por cada presentación elegible y verificada/);
+assert.match(spanishCards[0],/una sola vez por tienda/);
+assert(!spanishCards[0].includes('to a grocery store assigned'));
+assert.match(spanishCards[2],/tres eventos promocionales elegibles/);
+assert.match(spanishCards[2],/completen el registro elegible/);
+assert(!spanishCards[2].includes('completes qualifying signup'));
+assert(!spanishCards[2].includes('The roster, event criteria'));
 clickLocale(d.querySelector('[data-language="en"]'));
 assert.equal(d.documentElement.lang,'en');
 assert.match(d.querySelector('label[for="instagram_handle"]').textContent,/Instagram handle/);
