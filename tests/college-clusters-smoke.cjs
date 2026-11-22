@@ -85,4 +85,17 @@ assert(!site.includes('iconx-agency-logo.svg'),'No old V logo references remain 
 assert(!site.includes('href="https://iconx.io"'),'Iconx branding should not navigate away from this site');
 assert(!site.includes('href="https://iconx-io.vercel.app'),'Iconx branding should not navigate away from this site');
 
+
+// Compensation contract published on the live site and in the bilingual translations.
+assert.match(site,/\$25 per qualifying, verified store introduction/);
+assert.match(comp.textContent,/One-time payment per qualifying store introduction/);
+assert.match(comp.textContent,/one time per store/);
+assert.match(comp.textContent,/three qualifying promotional events/);
+assert.match(site,/All three events are required for each roster store/);
+assert.match(translations,/tres eventos promocionales elegibles/);
+assert.match(translations,/No se requiere que la tienda se registre/);
+assert.match(read('README.md'),/one-time per qualifying, verified introduction/);
+assert(!site.includes('per qualified store signup'));
+assert(!site.includes('first eligible promotion. The store roster'));
+assert(!translations.includes('El pago de \$25 se obtiene cuando una tienda elegible es aprobada'));
 console.log('Ambassador one-page QA passed: 23 stores, 11 selectable groups, restricted state, no speculative city map, internship optional.');

@@ -14,7 +14,7 @@
   <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script defer src="./college-clusters-data.js?v=20261121-20x20"></script>
   <script defer src="./app.js?v=20261121-contact-bilingual"></script>
-  <script defer src="./i18n.js?v=20261121-contact-bilingual"></script>
+  <script defer src="./i18n.js?v=20261122-compensation-v2"></script>
 </head>
 <body>
   <header>
@@ -40,7 +40,7 @@
           <h1>Own your territory.<br><span class="grad">Grow rewards.</span></h1>
           <p class="lede">Help neighborhood grocers join <strong>GFT Rewards</strong>. Introduce store owners to the platform, guide approved stores through onboarding, and support their first shopper-rewards promotion. Work locally with Iconx.io, a registered GFT Rewards agency.</p>
           <div class="tagline" aria-label="Program highlights">
-            <span class="tag">$25 per qualified store signup</span>
+            <span class="tag">$25 per qualifying, verified store introduction</span>
             <span class="tag">1¢ per reward redemption — ongoing</span>
             <span class="tag">$500 territory completion bonus</span>
             <span class="tag">English + Spanish required</span>
@@ -49,7 +49,7 @@
             <a class="pillbtn gradient" href="#ambassador-application">Apply to be an ambassador <span aria-hidden="true">→</span></a>
             <a class="pillbtn light" href="#territories">Find your territory</a>
           </div>
-          <p class="note">The $25 payment is earned after a qualifying store is approved and signs up—not just after a meeting. Incentive eligibility, roster targets and applicable compensation are defined in the written agreement.</p>
+          <p class="note">The one-time $25 payment is earned for a qualifying, verified introduction to a grocery store assigned to you. Introduction verification, eligible stores, territory targets and applicable compensation are defined in the written agreement.</p>
         </div>
         <div class="illustration" role="group" aria-label="Three milestones for a GFT Rewards Store Ambassador">
           <div class="float-label">YOU = LOCAL STORE CONNECTOR ✦</div>
@@ -100,11 +100,11 @@
     </section>
     <section class="section comp-section" id="compensation">
       <div class="wrap">
-        <div class="center"><span class="eyebrow">Store-based ambassador compensation</span><h2>Onboard stores. Support their first offer. <span class="grad">Earn as they succeed.</span></h2><p>Earn for approved store signups, eligible ongoing reward redemptions, and completing your approved territory.</p></div>
+        <div class="center"><span class="eyebrow">Store-based ambassador compensation</span><h2>Onboard stores. Support their first offer. <span class="grad">Earn as they succeed.</span></h2><p>Earn for qualifying, verified store introductions, eligible ongoing reward redemptions, and completion of your approved territory roster.</p></div>
         <div class="cards comp-cards">
-          <article class="card comp-card"><div class="card-icon">🤝</div><div class="comp-value">$25</div><h3>One-time payment per signed-up store</h3><p>Introduce a qualified store and arrange a meeting. When the store is approved by GFT Rewards and completes its qualifying platform signup, you earn one $25 payment. A meeting alone does not trigger the payout.</p></article>
+          <article class="card comp-card"><div class="card-icon">🤝</div><div class="comp-value">$25</div><h3>One-time payment per qualifying store introduction</h3><p>Earn <strong>$25 for each qualifying, verified introduction</strong> to a grocery store assigned to you, one time per store. The written program terms define qualifying introductions, verification and attribution. Store signup is a separate milestone.</p></article>
           <article class="card comp-card"><div class="card-icon">🔁</div><div class="comp-value">1¢</div><h3>Ongoing share per reward redemption</h3><p>Earn <strong>$0.01 for each verified, eligible reward redemption</strong> at a store credited to you while that store remains part of the active program under your written agreement. This ongoing payment continues after the first promotion.</p></article>
-          <article class="card comp-card"><div class="card-icon">🏁</div><div class="comp-value">$500</div><h3>One-time territory completion bonus</h3><p>Earn a final <strong>$500 bonus</strong> when <strong>every store on your pre-approved territory roster</strong> completes qualifying signup and its first eligible promotion. The store roster is agreed upon in writing before work begins.</p></article>
+          <article class="card comp-card"><div class="card-icon">🏁</div><div class="comp-value">$500</div><h3>One-time territory completion bonus</h3><p>Earn a one-time <strong>$500 bonus</strong> when <strong>every store on your pre-approved territory roster</strong> completes qualifying signup <strong>and executes three qualifying promotional events</strong>. The roster, event criteria and completion requirements are agreed upon in writing before work begins.</p></article>
         </div>
 
         <div class="cc-internship-strip" id="college-internship">
@@ -112,7 +112,7 @@
           <p>The Ambassador Program is open to qualified adults, not just students. Eligible college applicants can also request documented, hands-on experience supporting major brand campaigns, retailer account management, shopper loyalty, and account-specific loyalty. Verified participation can include an approved work plan, documented hours and supervisor review. Your college separately determines eligibility for internship recognition or academic credit.</p></div>
           <a class="pillbtn light" href="#ambassador-application">Apply as an ambassador →</a>
         </div>
-        <p class="comp-terms">The written compensation plan will define qualifying stores, verified redemptions, the ongoing 1¢ payment, reversals/refunds, store attribution, active participation requirements, territory rosters, payment timing, and any compensation legally required for work performed. Incentive payments do not replace wages owed under applicable law.</p>
+        <p class="comp-terms">The written compensation plan will define qualifying and verified introductions, assigned stores, qualifying promotional events, the three-event completion requirement for every roster store, verified redemptions, the ongoing 1¢ payment, reversals/refunds, attribution, active participation, territory rosters, payment timing, and any compensation legally required for work performed. Incentive payments do not replace wages owed under applicable law.</p>
       </div>
     </section>
 
@@ -161,9 +161,9 @@
 
     <section class="section faq-section"><div class="wrap faq-wrap"><div class="center"><span class="eyebrow">The essentials</span><h2>Quick questions</h2></div>
       <details class="faq"><summary>Do I need to speak both English and Spanish?</summary><p>Yes. Ambassadors are expected to hold store-owner conversations and guide store teams through GFT Rewards onboarding in English and Spanish. GFT platform training is required before field assignments.</p></details>
-      <details class="faq"><summary>Does setting up a meeting earn the $25 payment?</summary><p>No. The $25 is earned once an approved, qualifying store attributed to you completes its GFT Rewards platform signup. Introductions and meetings are part of the work, but do not independently trigger the incentive.</p></details>
+      <details class="faq"><summary>When do I earn the $25 introduction payment?</summary><p>The one-time $25 incentive is earned for a qualifying, verified introduction to a grocery store assigned to you. A store signup is not required for this introduction incentive. The written program agreement specifies verification, eligibility and attribution requirements.</p></details>
       <details class="faq"><summary>How does the ongoing 1¢ redemption payment work?</summary><p>You earn 1 cent for each verified, eligible reward redemption at your attributed stores while they remain in the active program under your written agreement, including after their first promotion. The written plan defines eligibility, reversals, reporting, and payment timing.</p></details>
-      <details class="faq"><summary>How do I earn the $500 territory bonus?</summary><p>The one-time bonus is triggered after every store on your pre-approved territory roster completes qualifying registration and its first eligible promotion. The roster and completion rules must be confirmed in writing before work begins.</p></details>
+      <details class="faq"><summary>How do I earn the $500 territory bonus?</summary><p>The one-time $500 bonus is earned when every store on your pre-approved territory roster completes qualifying signup and executes three qualifying promotional events. All three events are required for each roster store. The approved roster, event criteria and completion rules are confirmed in writing before work begins.</p></details>
       <details class="faq"><summary>Is a 20 × 20-mile territory exclusively mine?</summary><p>Not automatically. These are proposed geographic planning zones. Final territory assignment, store attribution and any exclusivity are decided in the written ambassador agreement. Some proposed zones overlap.</p></details>
       <details class="faq"><summary>Can I sign up any store right away?</summary><p>No. Stores must be approved by the GFT team, including any necessary point-of-sale or technical readiness checks, before a qualifying signup or promotion can be completed.</p></details>
       <details class="faq"><summary>Can college students participate in a verified internship?</summary><p>Eligible students can request an internship track while completing the same ambassador duties. Work may include major-brand campaigns, retailer management, shopper loyalty, and account-specific loyalty. Hours and responsibilities may be documented and reviewed by a supervisor; the school determines whether participation meets its internship or credit requirements.</p></details>

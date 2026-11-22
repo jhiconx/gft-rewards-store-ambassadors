@@ -5,10 +5,9 @@ Standalone GFT Rewards field-recruiting page for **Florida and New York**, coord
 ## Design and content
 
 - Original visual system: Manrope + DM Sans, lavender gradient hero, white illustration card, rounded buttons, compensation cards, application and FAQ.
-- **$25** per qualifying, approved store signup (not for a meeting alone).
-- **$1** per verified unique shopper redemption during each attributed store's *first eligible promotion*.
-- **$500** one-time territory completion bonus after every store on the pre-approved roster is enrolled and runs its first eligible promotion.
-- **$0.02 (2¢)** per verified, eligible reward redemption on an ongoing basis at the stores attributed to the ambassador while they participate under the written compensation agreement, including after the first promotion. The $1 first-promotion incentive remains separate.
+- **$25** one-time per qualifying, verified introduction to an assigned grocery store. Verification and attribution are governed by the written agreement; store signup is not a prerequisite for this introduction payment.
+- **$0.01 (1¢)** per verified, eligible redemption on an ongoing basis at attributed participating stores, subject to the written agreement.
+- **$500** one-time territory completion bonus after **every store** on the pre-approved roster completes qualifying signup and **three qualifying promotional events**. The roster and event criteria are agreed upon in writing.
 - The interface is fully bilingual **English/Español** with a persistent language switch in the header, including the application, map controls, FAQs, and compensation terms.
 - Ambassadors **must speak English and Spanish** and **must complete GFT platform training**.
 - 18 proposed Florida and 20 proposed New York city-centered territories, each approximately **20 × 20 statute miles (400 square miles)**. Overlapping squares are planning concepts, not exclusivity promises. Assigned store rosters are definitive.
@@ -55,16 +54,16 @@ Run `python3 -m http.server 8000` from this folder and open `http://localhost:80
 
 ## Data handling / limitations
 
-The GFT-specific Supabase table stores applications with Row Level Security enabled and no anonymous policies. The Edge Function sends via Resend to two defined recruiting inboxes; there is no public CRM or application dashboard. The client includes a honeypot; the Edge Function validates fields and rate-limits repeated submissions per email and territory. CAPTCHA can be added if spam appears.
+The GFT-specific Supabase table stores applications with Row Level Security enabled and no anonymous policies. The Edge Function sends via Resend to the configured recruiting inboxes; there is no public CRM or application dashboard. The client includes a honeypot; the Edge Function validates fields and rate-limits repeated submissions per email and territory. CAPTCHA can be added if spam appears.
 
 The city-center coordinates are representative planning points. The website is not a GIS survey or a legal definition of territory. Adjacent city squares may overlap. Written store rosters and verified payout rules govern.
 
-The $25 / $1 / $500 incentives and language/training requirements were provided for product implementation and do not by themselves establish employment classification or compliance with wage-and-hour law. Have the written compensation plan reviewed before launching recruitment.
+The $25 introduction, 1¢ redemption and $500 territory-completion incentives and language/training requirements were provided for product implementation and do not by themselves establish employment classification or compliance with wage-and-hour law. Have the written compensation plan reviewed before launching recruitment.
 
 **Existing Sampling For Good repository and site are not changed by this project.**
 ## Bilingual website
 
-The language selector (EN / ES) changes visitor-facing content, including dynamic territory text, instructions and application feedback. Language choice is retained locally when the browser permits it. The English source remains the default. Ongoing 2¢ redemption commissions are conditional on verified eligible redemptions and the written active-store attribution agreement.
+The language selector (EN / ES) changes visitor-facing content, including dynamic territory text, instructions and application feedback. Language choice is retained locally when the browser permits it. The English source remains the default. Ongoing 1¢ redemption commissions are conditional on verified eligible redemptions and the written active-store attribution agreement.
 
 ## Delivery verification
 
